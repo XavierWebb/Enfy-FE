@@ -11,4 +11,9 @@ export const Text_One = styled.p`
     color: white;
     font-family: 'Jost', sans-serif;
     font-size: 1.5rem;
+    margin: 0;
+`
+
+export const ErrorText = styled(Text_One)`
+    color: red;
 `
