@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { darkMode_palette, lightMode_palette } from "../common/styles";
 
 interface ButtonProps {
-    children: React.ReactNode;
+    children: React.ReactNode
     variant?: 'primary' | 'secondary'
     type?: 'button' | 'submit'
+    onClick?: () => void
 }
 
 const variantMapper = {
@@ -63,10 +64,11 @@ const StyledButton = styled.button<{variant: 'primary' | 'secondary'}>`
 export const Button = ({
     children,
     variant = 'primary',
-    type = 'button'
+    type = 'button',
+    onClick,
 }: ButtonProps) => {
     return (
-        <StyledButton variant={variant} type={type}>
+        <StyledButton variant={variant} type={type} onClick={onClick}>
             {children}
         </StyledButton>
     )

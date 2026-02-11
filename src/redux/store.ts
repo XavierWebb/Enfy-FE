@@ -8,7 +8,7 @@ import userReducer from './usersSlice';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['modals', 'users']
+    whitelist: ['users']
 }
 
 const rootReducer = combineReducers({
@@ -24,3 +24,4 @@ export const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);
+export type RootState = ReturnType<typeof store.getState>

@@ -1,4 +1,3 @@
-import styled from "styled-components"
 import { Button } from "../components/button"
 import { TextInput } from "../components/input"
 import { ErrorText, Text_One } from "../components/texts"
@@ -10,10 +9,10 @@ import { createUser } from "../requests/userRequests"
 import { useAppDispatch } from "../redux/hooks"
 import { unwrapResult } from "@reduxjs/toolkit"
 import { toast } from 'react-toastify';
+import { useSelector } from "react-redux"
+import type { RootState } from "../redux/store"
+import { disableModal } from "../redux/modalsSlice"
 
-const StyledForm = styled.form`
-    
-`
 
 const schema = z.object({
     name: z.string().min(8, 'Your name needs to have 8 chars min'),
@@ -24,11 +23,13 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>
 
 export const RegisterModal = () => {
+    const modal = useSelector((state: RootState) => state.modals.register)
     const dispatch = useAppDispatch();
 
     const {
         register,
         handleSubmit,
+        reset,
         formState: {errors}
     } = useForm<FormFields>({
         resolver: zodResolver(schema)
@@ -37,15 +38,20 @@ export const RegisterModal = () => {
     const OnSubmit = async (data: FormFields) => {
         try {
             await dispatch(createUser(data)).then(unwrapResult);
-            toast.success('User created!')
+            toast.success('User created!');
+            dispatch(disableModal('register'));
+            reset();
         } catch (e: any) {
             toast.error(e);
         }
     }
-
+    
+    if (!modal){
+        return;
+    }
     return (
         <BaseModal title="Register">
-            <StyledForm onSubmit={handleSubmit(OnSubmit)}>
+            <form onSubmit={handleSubmit(OnSubmit)}>
                 <Text_One>username:</Text_One>
                 <TextInput 
                     {...register('name')}
@@ -65,10 +71,12 @@ export const RegisterModal = () => {
                 {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
 
                 <div>
-                    <Button variant='secondary'>Cancel</Button>
+                    <Button type='button' variant='secondary' onClick={()=>{
+                        dispatch(disableModal('register'))
+                    }}>Cancel</Button>
                     <Button type='submit'>Register</Button>
                 </div>
-            </StyledForm>
+            </form>
         </BaseModal>
     )
 }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUser } from "../requests/userRequests";
+import { createUser, loginUser } from "../requests/userRequests";
 
 type UserType = {
     id: number,
@@ -31,6 +31,9 @@ const UsersSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(createUser.fulfilled, (state, action) => {
+                state.currentUser = action.payload
+            })
+            .addCase(loginUser.fulfilled, (state, action) => {
                 state.currentUser = action.payload
             })
     }
