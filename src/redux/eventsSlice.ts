@@ -16,11 +16,13 @@ interface Events {
 
 interface StateProps {
     EventSearched: Events[]
+    EventsRecommended: Events[]
     searchStatus: boolean
 }
 
 const initialState: StateProps = {
     EventSearched: [],
+    EventsRecommended: [],
     searchStatus: false
 }
 
