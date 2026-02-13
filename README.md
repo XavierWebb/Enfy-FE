@@ -18,4 +18,4 @@ Devlogs:
   - Today I Implemented Modals & Redux Persist & Login/Register Functions
 
 13 February 2026:
-  -
+  - I've implemented a search system in the navbar, in addition to implementing HTTP requests for event searches and the homepage. I hope to implement a JWT system tomorrow to improve the app's security.
