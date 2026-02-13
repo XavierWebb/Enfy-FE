@@ -4,6 +4,7 @@ import { persistReducer, persistStore } from "redux-persist";
 
 import registerReducer from './modalsSlice';
 import userReducer from './usersSlice';
+import eventReducer from './eventsSlice';
 
 const persistConfig = {
     key: 'root',
@@ -13,7 +14,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     modals: registerReducer,
-    users: userReducer
+    users: userReducer,
+    events: eventReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

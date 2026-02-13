@@ -17,3 +17,5 @@ Devlogs:
 11 February 2026:
   - Today I Implemented Modals & Redux Persist & Login/Register Functions
 
+13 February 2026:
+  -
