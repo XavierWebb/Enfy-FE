@@ -1,13 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { SearchEvent } from "../requests/searchRequest";
+import { fetchEvent } from "../requests/eventsRequest";
 
 interface Events {
     id: number,
     status: 'active' | 'past' | 'cancelled',
     name: string,
     description: string,
-    creationDate: string,
-    eventDate: string,
+    creationDate: Date,
+    eventDate: Date,
     ubication: string,
     price: number,
     owner_id: number,
@@ -17,22 +18,49 @@ interface Events {
 interface StateProps {
     EventSearched: Events[]
     EventsRecommended: Events[]
+    EventView: Events;
     searchStatus: boolean
+    searched: string
 }
 
 const initialState: StateProps = {
     EventSearched: [],
     EventsRecommended: [],
+    EventView: {
+        id: 0,
+        status: 'active',
+        name: '',
+        description: '',
+        creationDate: new Date(),
+        eventDate: new Date(),
+        ubication: '',
+        price: 0,
+        owner_id: 0,
+
+    },
+    searched: '',
     searchStatus: false
 }
 
 
 const EventsSlice = createSlice({
-    name:'events',
+    name: 'events',
     initialState,
     reducers: {
         update_searchStatus: (state, action: PayloadAction<boolean>) => {
             state.searchStatus = action.payload;
+        },
+
+        clearSearched: (state) => {
+            state.EventSearched = [];
+        },
+
+        updateView: (state, action: PayloadAction<Events>) => {
+            state.EventView = action.payload
+        },
+
+        search_content: (state, action: PayloadAction<string>) => {
+            state.searched = action.payload
         }
     },
     extraReducers: builder => {
@@ -45,8 +73,12 @@ const EventsSlice = createSlice({
                 state.EventSearched = [];
                 state.searchStatus = true;
             })
-    }  
+
+            .addCase(fetchEvent.fulfilled, (state, action) => {
+                state.EventView = action.payload
+            })
+    }
 })
 
 export default EventsSlice.reducer;
-export const { update_searchStatus } = EventsSlice.actions;
+export const { update_searchStatus, clearSearched, updateView, search_content} = EventsSlice.actions;

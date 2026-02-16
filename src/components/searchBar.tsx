@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { useAppDispatch } from "../redux/hooks"
 import { SearchEvent } from "../requests/searchRequest"
 import { unwrapResult } from "@reduxjs/toolkit"
+import { clearSearched, search_content } from "../redux/eventsSlice"
 
 const StyledBar = styled.input`
     background-color: #D9D9D9;
@@ -34,6 +35,8 @@ export const SearchBar = () => {
     })
 
     const OnSubmit = (data: FormFields) => {
+        dispatch(clearSearched());
+        dispatch(search_content(data.text))
         dispatch(SearchEvent(data.text)).then(unwrapResult)
         reset()
     }

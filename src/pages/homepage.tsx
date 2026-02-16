@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { NavBar } from "../components/navbar"
-import { update_searchStatus } from "../redux/eventsSlice";
+import { clearSearched, search_content, update_searchStatus } from "../redux/eventsSlice";
 import { useAppDispatch } from "../redux/hooks"
 import { SearchPage } from "./searchPage"
 import type { RootState } from "../redux/store";
@@ -52,6 +52,8 @@ export const HomePage = () => {
     const recommendedEvents = useSelector((state:RootState) => state.events.EventsRecommended)
     useEffect(() => {
         dispatch(update_searchStatus(false))
+        dispatch(search_content(''))
+        dispatch(clearSearched())
     }, [dispatch])
 
     return (
@@ -79,6 +81,7 @@ export const HomePage = () => {
                                     recommendedEvents.map((e)=> {
                                         return (
                                             <EventCard
+                                                id={e.id}
                                                 key={e.id}
                                                 name={e.name}
                                                 description={e.description}
