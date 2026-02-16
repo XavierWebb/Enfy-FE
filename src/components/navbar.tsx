@@ -3,7 +3,7 @@ import { Button } from "./button"
 import { SearchBar } from "./searchBar"
 import { useNavigate } from "react-router"
 import { useAppDispatch } from "../redux/hooks"
-import { update_searchStatus } from "../redux/eventsSlice"
+import { clearSearched, search_content, update_searchStatus } from "../redux/eventsSlice"
 
 const StyledNavbar = styled.div`
     display: flex;
@@ -37,6 +37,8 @@ export const NavBar = () => {
             <Button variant="secondary" onClick={()=>{
                 navigate('/')
                 dispatch(update_searchStatus(false))
+                dispatch(clearSearched())
+                dispatch(search_content(''))
             }}>Enfy</Button>
             <SearchBar/>
             <RightContainer>
