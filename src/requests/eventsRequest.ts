@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 export const fetchEvent = createAsyncThunk(
     '',
     async ( 
@@ -11,7 +10,9 @@ export const fetchEvent = createAsyncThunk(
     )=>{
         try {
 
-            const response = await axios.get(`http://localhost:8000/api/events/fetchEvent/${event_id}`)
+            const response = await axios.get(`http://localhost:8000/api/events/fetchEvent/${event_id}`, {
+                withCredentials: true
+            })
 
             return response.data;
         } catch (error: any){

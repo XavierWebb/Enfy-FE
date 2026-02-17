@@ -15,7 +15,6 @@ export const ViewEvent = () => {
 
     const eventInfo = useSelector((state: RootState) => state.events.EventView);
 
-    console.log(event)
 
     useEffect(() => {
         if (eventInfo.id == 0) {

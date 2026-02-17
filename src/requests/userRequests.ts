@@ -10,7 +10,9 @@ export const createUser = createAsyncThunk(
         password: string,
     }, {rejectWithValue}) => {
         try{
-            const response = await axios.post('http://localhost:8000/api/users/createUser', data)
+            const response = await axios.post('http://localhost:8000/api/users/createUser', data,{
+                withCredentials: true
+            })
 
             return response.data
         } catch (error: any){
@@ -31,7 +33,9 @@ export const loginUser = createAsyncThunk(
         password: string,
     }, {rejectWithValue}) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/users/loginUser', data)
+            const response = await axios.post('http://localhost:8000/api/users/loginUser', data, {
+                withCredentials: true
+            })
 
             return response.data;
         } catch (error: any){
