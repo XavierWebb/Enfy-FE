@@ -32,10 +32,9 @@ export const LoginModal = () => {
         resolver: zodResolver(schema)
     })
 
-    const OnSubmit = (data: FormFields) => {
+    const OnSubmit = async(data: FormFields) => {
         try{
-
-            dispatch(loginUser(data)).then(unwrapResult);
+            await dispatch(loginUser(data)).then(unwrapResult);
             toast.success('Successful login');
             dispatch(disableModal('login'));
 

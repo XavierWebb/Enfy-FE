@@ -36,6 +36,9 @@ const UsersSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.currentUser = action.payload
             })
+
+            .addCase(loginUser.rejected, (_state, _action) => {
+            })
     }
 })
 

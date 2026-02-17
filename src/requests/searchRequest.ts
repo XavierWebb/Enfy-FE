@@ -1,11 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
 export const SearchEvent = createAsyncThunk(
     '/api/search/searchEvent',
     async (data: string, {rejectWithValue}) => {
         try {
-          const response = await axios.get(`http://localhost:8000/api/search/searchEvent/${data}`) 
+          const response = await axios.get(`http://localhost:8000/api/search/searchEvent/${data}`,
+            {
+                withCredentials: true
+            }
+          ) 
 
           return response.data;
         } catch (error: any) {

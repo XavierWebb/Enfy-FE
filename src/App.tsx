@@ -10,7 +10,7 @@ import { ViewEvent } from './pages/viewevent'
 
 function App() {
   const user = useSelector((state:RootState) => state.users.currentUser)
-
+  
   return (
     <>
       <ToastContainer theme='dark'/>
