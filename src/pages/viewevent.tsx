@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 import { fetchEvent } from "../requests/eventsRequest";
 import { Button } from "../components/button";
+import { formatUTCDate } from "../common/dateFormat";
 
 export const ViewEvent = () => {
     const [searchParams] = useSearchParams();
@@ -21,18 +22,6 @@ export const ViewEvent = () => {
             dispatch(fetchEvent(Number(event)))
         }
     }, [dispatch])
-
-    const formatUTCDate = (date: Date | string) => {
-        const d = new Date(date);
-
-        const day = String(d.getUTCDate()).padStart(2, '0');
-        const month = String(d.getUTCMonth() + 1).padStart(2, '0');
-        const year = String(d.getUTCFullYear()).slice(-2);
-        const hours = String(d.getUTCHours()).padStart(2, '0');
-        const minutes = String(d.getUTCMinutes()).padStart(2, '0');
-
-        return `${day}/${month}/${year} ${hours}:${minutes} UTC`;
-    };
 
     return (
         <PageDivisorTwo>

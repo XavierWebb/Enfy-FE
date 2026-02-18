@@ -47,7 +47,7 @@ export const NavBar = () => {
                     onClick={() => { }}
                 >{`ENG <`} </Button>
                 <ProfilePicture onClick={()=>{
-                    navigate('/profile/me')
+                    navigate('/profile?user=me')
                 }}/>
             </RightContainer>
         </StyledNavbar>
