@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { createUser, loginUser } from "../requests/userRequests";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createUser, fetchMe, fetchUser, loginUser } from "../requests/userRequests";
 import type { Events } from "./eventsSlice";
 
 type UserType = {
@@ -56,6 +56,14 @@ const UsersSlice = createSlice({
             })
 
             .addCase(loginUser.rejected, (_state, _action) => {
+            })
+
+            .addCase(fetchUser.fulfilled, (state, action: PayloadAction<OtherUserType>) => {
+                state.OtherUser = action.payload
+            })
+
+            .addCase(fetchMe.fulfilled, (state, action: PayloadAction<UserType>)=> {
+                state.currentUser = action.payload
             })
     }
 })

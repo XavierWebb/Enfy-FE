@@ -11,7 +11,7 @@ import { EventCard } from "../components/eventCard"
 import { Button } from "../components/button"
 import { useAppDispatch } from "../redux/hooks"
 import { useEffect } from "react"
-import { fetchUser } from "../requests/userRequests"
+import { fetchMe, fetchUser } from "../requests/userRequests"
 
 interface ProfileProps {
     id: number,
@@ -162,17 +162,24 @@ const ProfileComponent = ({
 
 export const ProfilePage = () => {
     const [searchParams] = useSearchParams();
-    const me = useSelector((state: RootState) => state.users.currentUser)
-    const userToSearch = searchParams.get('user')
+    const me = useSelector((state: RootState) => state.users.currentUser);
+    const userToSearch = searchParams.get('user');
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    if(me.id == 0){
+        navigate('/')
+    }
 
     useEffect(()=> {
         if (Number(userToSearch) !== me.id && Number(userToSearch) !== undefined 
         && Number(userToSearch) !== 0 && Number.isInteger(Number(userToSearch)) 
         && userToSearch !== 'me'){
             dispatch(fetchUser(Number(userToSearch)))
+        } else if (userToSearch == 'me' || Number(userToSearch) == me.id){
+            dispatch(fetchMe())
         }
-    }, [])
+    }, [dispatch, userToSearch])
 
     if (userToSearch == 'me' || userToSearch == String(me.id)) {
         return (

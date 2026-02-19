@@ -22,6 +22,26 @@ export const fetchUser = createAsyncThunk(
     }
 )
 
+export const fetchMe = createAsyncThunk(
+    '/api/users/fetchMe',
+    async ({},{rejectWithValue}) => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/users/fetchMe`, {
+                withCredentials: true
+            })
+
+            return response.data
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data.detail)
+
+            }
+
+            return rejectWithValue('Unexpected Error');
+        }
+    }
+)
+
 export const createUser = createAsyncThunk(
     '/api/users/createUser',
     async (data: {
