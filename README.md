@@ -22,3 +22,9 @@ Devlogs:
 
 16 February 2026:
   - Today I implemented the view of the event and the fetchEvent request
+
+17 February 2026:
+  - Today I Implemented the Profile Page,
+
+18 February 2026:
+  - Today I Implemented the user Fetchs.
