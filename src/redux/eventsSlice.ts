@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { SearchEvent } from "../requests/searchRequest";
 import { fetchEvent } from "../requests/eventsRequest";
 
-interface Events {
+export interface Events {
     id: number,
     status: 'active' | 'past' | 'cancelled',
     name: string,
