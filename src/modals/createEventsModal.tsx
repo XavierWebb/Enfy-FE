@@ -19,6 +19,7 @@ const schema = z.object({
     description: z.string(),
     price: z.number(),
     eventDate: z.date(),
+    ubication: z.string()
 })
 
 type FormProps = z.infer<typeof schema>
@@ -83,6 +84,14 @@ export const CreateEventModal = () => {
                 />
 
                 {errors.price && <ErrorText>{errors.price.message}</ErrorText>}
+
+                <TextInput
+                    placeholder="ubication"
+                    {...register('ubication')}
+                />
+
+                {errors.ubication && <ErrorText>{errors.ubication.message}</ErrorText>}
+
                 <Controller
                     name="eventDate"
                     control={control}
@@ -98,7 +107,9 @@ export const CreateEventModal = () => {
                         />
                     )}
                 />
+
                 <Text_One>The date showed in the input is UTC time</Text_One>
+
                 {errors.eventDate && <ErrorText>{errors.eventDate.message}</ErrorText>}
 
                 <div>
@@ -108,6 +119,7 @@ export const CreateEventModal = () => {
 
                     <Button type="submit">Create</Button>
                 </div>
+                
             </StyledForm>
         </BaseModal>
     )

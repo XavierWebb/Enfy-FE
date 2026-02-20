@@ -32,6 +32,7 @@ export const createEvent = createAsyncThunk(
             description: string,
             price: number,
             eventDate: Date,
+            ubication: string,
     }, {rejectWithValue}) => {
         try {
 
