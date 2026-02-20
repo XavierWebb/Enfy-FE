@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { createUser, fetchMe, fetchUser, loginUser } from "../requests/userRequests";
 import type { Events } from "./eventsSlice";
+import { createEvent } from "../requests/eventsRequest";
 
 type UserType = {
     id: number,
@@ -64,6 +65,10 @@ const UsersSlice = createSlice({
 
             .addCase(fetchMe.fulfilled, (state, action: PayloadAction<UserType>)=> {
                 state.currentUser = action.payload
+            })
+
+            .addCase(createEvent.fulfilled, (state, action: PayloadAction<Events>) => {
+                state.currentUser.eventsCreated.push(action.payload)
             })
     }
 })
