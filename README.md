@@ -28,3 +28,6 @@ Devlogs:
 
 18 February 2026:
   - Today I Implemented the user Fetchs.
+
+19 February 2026:
+  - I added the function of create events only if your role is 'Admin' or 'Company', probably later I will implement the 'Business Aplication' to get authorizated for create events.

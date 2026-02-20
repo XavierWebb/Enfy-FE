@@ -12,6 +12,7 @@ import { Button } from "../components/button"
 import { useAppDispatch } from "../redux/hooks"
 import { useEffect } from "react"
 import { fetchMe, fetchUser } from "../requests/userRequests"
+import { enableModal } from "../redux/modalsSlice"
 
 interface ProfileProps {
     id: number,
@@ -51,7 +52,7 @@ const ProfileComponent = ({
 }: ProfileProps) => {
     const navigate = useNavigate();
     const me = useSelector((state: RootState) => state.users.currentUser)
-
+    const dispatch = useAppDispatch();
     return (
         <PageDivisorTwo>
             <MainContainer>
@@ -116,7 +117,9 @@ const ProfileComponent = ({
                                                         <>
                                                             <Text_One>- - -[ You haven't created any event yet ]- - -</Text_One>
                                                             <div>
-                                                                <Button>Create your first Event</Button>
+                                                                <Button onClick={()=> {
+                                                                    dispatch(enableModal('createEvent'))
+                                                                }}>Create your first Event</Button>
                                                             </div>
                                                         </>
                                                     )
@@ -146,7 +149,9 @@ const ProfileComponent = ({
                                 {
                                     id == me.id && (
                                         <div>
-                                            <Button>Create a new Event</Button>
+                                            <Button onClick={()=> {
+                                                dispatch(enableModal('createEvent'))
+                                            }}>Create a new Event</Button>
                                         </div>
                                     )
                                 }
