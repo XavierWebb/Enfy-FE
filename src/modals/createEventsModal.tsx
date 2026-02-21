@@ -12,7 +12,7 @@ import { Button } from "../components/button"
 import { disableModal } from "../redux/modalsSlice"
 import { DateTimeInput, TextInput } from "../components/input"
 import styled from "styled-components"
-import { ErrorText, Text_One } from "../components/texts"
+import { ErrorText } from "../components/texts"
 
 const schema = z.object({
     name: z.string(),
