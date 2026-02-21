@@ -1,8 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import type { FormProps } from "../modals/createEventsModal";
 
 export const fetchEvent = createAsyncThunk(
-    '',
+    '/api/events/fetchEvent',
     async ( 
         event_id: number,
         {rejectWithValue}
@@ -18,6 +19,26 @@ export const fetchEvent = createAsyncThunk(
         } catch (error: any){
             if (axios.isAxiosError(error)){
                 rejectWithValue('Event not founded')
+            }
+
+            rejectWithValue('Unexpected Error')
+        }
+    }
+)
+
+export const createEvent = createAsyncThunk(
+    '/api/events/createEvent',
+    async (data: FormProps, {rejectWithValue}) => {
+        try {
+            const response = await axios.post(`http://localhost:8000/api/events/createEvent`, data, {
+                withCredentials: true
+            })
+
+            return response.data;
+
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response){
+                return rejectWithValue(`Error: ${error.response.data.detail}`)
             }
 
             rejectWithValue('Unexpected Error')

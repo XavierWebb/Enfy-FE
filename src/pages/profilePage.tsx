@@ -12,6 +12,7 @@ import { Button } from "../components/button"
 import { useAppDispatch } from "../redux/hooks"
 import { useEffect } from "react"
 import { fetchMe, fetchUser } from "../requests/userRequests"
+import { enableModal } from "../redux/modalsSlice"
 
 interface ProfileProps {
     id: number,
@@ -51,7 +52,7 @@ const ProfileComponent = ({
 }: ProfileProps) => {
     const navigate = useNavigate();
     const me = useSelector((state: RootState) => state.users.currentUser)
-
+    const dispatch = useAppDispatch();
     return (
         <PageDivisorTwo>
             <MainContainer>
@@ -116,7 +117,9 @@ const ProfileComponent = ({
                                                         <>
                                                             <Text_One>- - -[ You haven't created any event yet ]- - -</Text_One>
                                                             <div>
-                                                                <Button>Create your first Event</Button>
+                                                                <Button onClick={() => {
+                                                                    dispatch(enableModal('createEvent'))
+                                                                }}>Create your first Event</Button>
                                                             </div>
                                                         </>
                                                     )
@@ -130,26 +133,28 @@ const ProfileComponent = ({
                                 </>
                             ) : (
                                 <>
-                                <EventContainer>
-                                    {eventsCreated.map((e) => {
-                                        return (
-                                            <EventCard
-                                                id={e.id}
-                                                key={e.id}
-                                                name={e.name}
-                                                description={e.description}
-                                                price={e.price}
-                                            />
+                                    <EventContainer>
+                                        {eventsCreated.map((e) => {
+                                            return (
+                                                <EventCard
+                                                    id={e.id}
+                                                    key={e.id}
+                                                    name={e.name}
+                                                    description={e.description}
+                                                    price={e.price}
+                                                />
+                                            )
+                                        })}
+                                    </EventContainer>
+                                    {
+                                        id == me.id && (
+                                            <div>
+                                                <Button onClick={() => {
+                                                    dispatch(enableModal('createEvent'))
+                                                }}>Create a new Event</Button>
+                                            </div>
                                         )
-                                    })}
-                                </EventContainer>
-                                {
-                                    id == me.id && (
-                                        <div>
-                                            <Button>Create a new Event</Button>
-                                        </div>
-                                    )
-                                }
+                                    }
                                 </>
                             )
                         }
@@ -166,20 +171,33 @@ export const ProfilePage = () => {
     const userToSearch = searchParams.get('user');
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const user = useSelector((state: RootState) => state.users.OtherUser)
 
-    if(me.id == 0){
-        navigate('/')
-    }
+    useEffect(() => {
+        if (me.id === 0) {
+            navigate('/')
+        }
+    }, [me.id, navigate])
 
-    useEffect(()=> {
-        if (Number(userToSearch) !== me.id && Number(userToSearch) !== undefined 
-        && Number(userToSearch) !== 0 && Number.isInteger(Number(userToSearch)) 
-        && userToSearch !== 'me'){
-            dispatch(fetchUser(Number(userToSearch)))
-        } else if (userToSearch == 'me' || Number(userToSearch) == me.id){
+    useEffect(() => {
+        if (!userToSearch) return
+
+        if (userToSearch === 'me') {
             dispatch(fetchMe())
+            return
+        }
+
+        const userId = Number(userToSearch)
+
+        if (
+            Number.isInteger(userId) &&
+            userId > 0 &&
+            userId !== me.id
+        ) {
+        dispatch(fetchUser(userId))
         }
     }, [dispatch, userToSearch])
+
 
     if (userToSearch == 'me' || userToSearch == String(me.id)) {
         return (
@@ -209,7 +227,6 @@ export const ProfilePage = () => {
         )
     }
 
-    const user = useSelector((state:RootState) => state.users.OtherUser)
     return (
         <>
             <NavBar />
