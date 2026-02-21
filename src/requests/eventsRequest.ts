@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import type { FormProps } from "../modals/createEventsModal";
 
 export const fetchEvent = createAsyncThunk(
     '/api/events/fetchEvent',
@@ -27,15 +28,8 @@ export const fetchEvent = createAsyncThunk(
 
 export const createEvent = createAsyncThunk(
     '/api/events/createEvent',
-    async (data: {
-            name: string,
-            description: string,
-            price: number,
-            eventDate: Date,
-            ubication: string,
-    }, {rejectWithValue}) => {
+    async (data: FormProps, {rejectWithValue}) => {
         try {
-
             const response = await axios.post(`http://localhost:8000/api/events/createEvent`, data, {
                 withCredentials: true
             })

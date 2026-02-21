@@ -22,7 +22,7 @@ const schema = z.object({
     ubication: z.string()
 })
 
-type FormProps = z.infer<typeof schema>
+export type FormProps = z.infer<typeof schema>
 
 const StyledForm = styled.form`
     display: flex;
@@ -40,6 +40,7 @@ export const CreateEventModal = () => {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors }
     } = useForm<FormProps>({
         resolver: zodResolver(schema)
@@ -49,7 +50,8 @@ export const CreateEventModal = () => {
         try {
             await dispatch(createEvent(data)).then(unwrapResult);
             toast.success('Event created successfuly');
-            dispatch(disableModal('createEvent'))
+            dispatch(disableModal('createEvent'));
+            reset();
         } catch (error: any) {
             toast.error(error);
         }
@@ -80,7 +82,7 @@ export const CreateEventModal = () => {
                 <TextInput
                     placeholder="Price"
                     type="number"
-                    {...register('price')}
+                    {...register('price', {valueAsNumber: true})}
                 />
 
                 {errors.price && <ErrorText>{errors.price.message}</ErrorText>}
@@ -100,15 +102,17 @@ export const CreateEventModal = () => {
                             value={value}
                             onChange={(e) => {
                                 const localValue = e.target.value;
-                                const date = new Date(localValue);
-                                onChange(date);
+                                const localDate = new Date(localValue);
+
+                                const utcDate = new Date(
+                                    localDate.getTime() - localDate.getTimezoneOffset() * 60000
+                                )
+                                onChange(utcDate);
                             }}
                             onBlur={onBlur}
                         />
                     )}
                 />
-
-                <Text_One>The date showed in the input is UTC time</Text_One>
 
                 {errors.eventDate && <ErrorText>{errors.eventDate.message}</ErrorText>}
 

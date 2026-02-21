@@ -17,32 +17,33 @@ export const DateTimeInput = ({
     onBlur = () => {},
     disabled = false,
 }: {
-    value: Date | string;
+    value: string | Date | null | undefined;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur?: () => void;
     disabled?: boolean;
 }) => {
 
-    const formatDateForInputUTC = (date: Date) => {
+    const formatDateForInputLocal = (date: Date) => {
+        const localDate = new Date(
+            date.getTime() + date.getTimezoneOffset() * 60000
+        );
+
         const pad = (n: number) => n.toString().padStart(2, "0");
 
-        return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}T${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}`;
+        return `${localDate.getFullYear()}-${pad(localDate.getMonth() + 1)}-${pad(localDate.getDate())}T${pad(localDate.getHours())}:${pad(localDate.getMinutes())}`;
     };
 
-    const parsedValue =
-        value instanceof Date
-            ? formatDateForInputUTC(value)
-            : value
-            ? formatDateForInputUTC(new Date(value))
-            : "";
+    const parsedValue = value
+        ? formatDateForInputLocal(new Date(value))
+        : "";
 
     return (
-            <TextInput
-                type="datetime-local"
-                value={parsedValue}
-                onChange={onChange}
-                onBlur={onBlur}
-                disabled={disabled}
-            />
+        <TextInput
+            type="datetime-local"
+            value={parsedValue}
+            onChange={onChange}
+            onBlur={onBlur}
+            disabled={disabled}
+        />
     );
 };
