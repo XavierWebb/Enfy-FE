@@ -28,11 +28,8 @@ export const SearchPage = () => {
                     events.map((e) => {
                         return (
                             <EventCard
+                                event={e}
                                 key={e.id}
-                                id={e.id}
-                                name={e.name}
-                                description={e.description}
-                                price={e.price}
                             />
                         )
                     })

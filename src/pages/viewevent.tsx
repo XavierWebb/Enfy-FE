@@ -8,6 +8,7 @@ import type { RootState } from "../redux/store";
 import { fetchEvent } from "../requests/eventsRequest";
 import { Button } from "../components/button";
 import { formatUTCDate } from "../common/dateFormat";
+import { NavBar } from "../components/navbar";
 
 export const ViewEvent = () => {
     const [searchParams] = useSearchParams();
@@ -24,16 +25,19 @@ export const ViewEvent = () => {
     }, [dispatch])
 
     return (
-        <PageDivisorTwo>
-            <Tittle_One>{eventInfo.name}</Tittle_One>
+        <>
+            <NavBar/>
+            <PageDivisorTwo>
+                <Tittle_One>{eventInfo.name}</Tittle_One>
 
-            <Text_One><strong>Event Day: {formatUTCDate(eventInfo.eventDate)}</strong></Text_One>
-            <Text_One><strong>Entry Price: {eventInfo.price}$ USD</strong></Text_One>
-            <Text_One><strong>Description</strong></Text_One>
-            <Text_One>{eventInfo.description}</Text_One>
-            <div>
-                <Button>Buy Entry</Button>
-            </div>
-        </PageDivisorTwo>
+                <Text_One><strong>Event Day: {formatUTCDate(eventInfo.eventDate)}</strong></Text_One>
+                <Text_One><strong>Entry Price: {eventInfo.price}$ USD</strong></Text_One>
+                <Text_One><strong>Description</strong></Text_One>
+                <Text_One>{eventInfo.description}</Text_One>
+                <div>
+                    <Button>Buy Entry</Button>
+                </div>
+            </PageDivisorTwo>
+        </>
     )
 };

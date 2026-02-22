@@ -4,15 +4,15 @@ import { Button } from "./button"
 import { darkMode_palette } from "../common/styles"
 import { useNavigate } from "react-router"
 import { useAppDispatch } from "../redux/hooks"
-import { updateView } from "../redux/eventsSlice"
-import { useSelector } from "react-redux"
-import type { RootState } from "../redux/store"
+import { fetchEvent } from "../requests/eventsRequest"
 
 interface CardProps {
-    id: number,
-    name: string,
-    description: string,
-    price: number,
+    event: {
+        id: number,
+        name: string,
+        description: string,
+        price: number,
+    }
 }
 
 const StyledCard = styled.div`
@@ -41,29 +41,23 @@ const Line = styled.div`
     margin-bottom: 1rem;
 `
 
-export const EventCard = ({
-    id,
-    name,
-    description,
-    price,
-}: CardProps) => {
-    
+export const EventCard = ({event}: CardProps) => {
+
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const event = useSelector((state: RootState) => state.events.EventSearched.find(e => e.id == id))
 
     if (!event) {
         return;
     }
     return (
         <StyledCard>
-            <Tittle_Two>{name}</Tittle_Two>
-            <Line/>
-            <Text_Two>{description}</Text_Two>
-            <Text_Two><strong>Entry Price: {price}$ USD</strong></Text_Two>
-            <Button onClick={()=> {
-                dispatch(updateView(event))
-                navigate(`/view?event=${id}`)
+            <Tittle_Two>{event.name}</Tittle_Two>
+            <Line />
+            <Text_Two>{event.description}</Text_Two>
+            <Text_Two><strong>Entry Price: {event.price}$ USD</strong></Text_Two>
+            <Button onClick={() => {
+                dispatch(fetchEvent(event.id))
+                navigate(`/view?event=${event.id}`)
             }}>See Event</Button>
         </StyledCard>
     )

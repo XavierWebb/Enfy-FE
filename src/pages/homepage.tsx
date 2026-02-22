@@ -55,7 +55,6 @@ export const HomePage = () => {
         dispatch(search_content(''))
         dispatch(clearSearched())
     }, [dispatch])
-
     return (
         <>
             <NavBar />
@@ -81,11 +80,8 @@ export const HomePage = () => {
                                     recommendedEvents.map((e)=> {
                                         return (
                                             <EventCard
-                                                id={e.id}
+                                                event={e}
                                                 key={e.id}
-                                                name={e.name}
-                                                description={e.description}
-                                                price={e.price}
                                             />
                                         )
                                     })

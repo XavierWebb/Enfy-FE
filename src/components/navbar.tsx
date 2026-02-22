@@ -4,6 +4,8 @@ import { SearchBar } from "./searchBar"
 import { useNavigate } from "react-router"
 import { useAppDispatch } from "../redux/hooks"
 import { clearSearched, search_content, update_searchStatus } from "../redux/eventsSlice"
+import { useSelector } from "react-redux"
+import type { RootState } from "../redux/store"
 
 const StyledNavbar = styled.div`
     display: flex;
@@ -32,6 +34,8 @@ export const NavBar = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const user = useSelector((state:RootState) => state.users.currentUser)
+
     return (
         <StyledNavbar>
             <Button variant="secondary" onClick={()=>{
@@ -46,7 +50,9 @@ export const NavBar = () => {
                     variant='secondary'
                     onClick={() => { }}
                 >{`ENG <`} </Button>
-                <ProfilePicture onClick={()=>{
+                <ProfilePicture 
+                    src={`/userImages/${user.profilePicture}.webp`}
+                onClick={()=>{
                     navigate('/profile?user=me')
                 }}/>
             </RightContainer>
