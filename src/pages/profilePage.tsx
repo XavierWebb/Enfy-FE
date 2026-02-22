@@ -18,7 +18,7 @@ interface ProfileProps {
     id: number,
     name: string,
     role: string,
-    createdAt: Date,
+    createdAt: string,
     profilePicture: string,
     eventsCreated?: Events[],
     eventsBought?: Events[],
@@ -39,6 +39,7 @@ const MainContainer = styled.div`
 
 const EventContainer = styled.div`
     display: flex;
+    justify-content: center;
 `
 
 const ProfileComponent = ({
@@ -53,6 +54,7 @@ const ProfileComponent = ({
     const navigate = useNavigate();
     const me = useSelector((state: RootState) => state.users.currentUser)
     const dispatch = useAppDispatch();
+
     return (
         <PageDivisorTwo>
             <MainContainer>
@@ -78,11 +80,8 @@ const ProfileComponent = ({
                                     {eventsBought.map((e) => {
                                         return (
                                             <EventCard
-                                                id={e.id}
                                                 key={e.id}
-                                                name={e.name}
-                                                description={e.description}
-                                                price={e.price}
+                                                event={e}
                                             />
                                         )
                                     })}
@@ -137,11 +136,8 @@ const ProfileComponent = ({
                                         {eventsCreated.map((e) => {
                                             return (
                                                 <EventCard
-                                                    id={e.id}
                                                     key={e.id}
-                                                    name={e.name}
-                                                    description={e.description}
-                                                    price={e.price}
+                                                    event={e}
                                                 />
                                             )
                                         })}
@@ -207,8 +203,8 @@ export const ProfilePage = () => {
                     id={me.id}
                     name={me.name}
                     role={me.role}
-                    profilePicture=""
-                    createdAt={me.createdAt || new Date()}
+                    profilePicture={`/userImages/${me.profilePicture}.webp`}
+                    createdAt={me.createdAt}
                     eventsBought={me.eventsBought || []}
                     eventsCreated={me.eventsCreated || []}
                 />
@@ -235,8 +231,8 @@ export const ProfilePage = () => {
                 id={user.id}
                 name={user.name}
                 role={user.role}
-                createdAt={user.createdAt || new Date()}
-                profilePicture={user.profilePicture}
+                createdAt={user.createdAt}
+                profilePicture={`/userImages/${user.profilePicture}.webp`}
                 eventsCreated={user.eventsCreated}
             />
         </>

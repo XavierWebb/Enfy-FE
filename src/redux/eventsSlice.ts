@@ -4,11 +4,11 @@ import { fetchEvent } from "../requests/eventsRequest";
 
 export interface Events {
     id: number,
-    status: 'active' | 'past' | 'cancelled',
+    status: 'active' | 'finished' | 'cancelled',
     name: string,
     description: string,
-    creationDate: Date,
-    eventDate: Date,
+    creationDate: string,
+    eventDate: string,
     ubication: string,
     price: number,
     owner_id: number,
@@ -31,8 +31,8 @@ const initialState: StateProps = {
         status: 'active',
         name: '',
         description: '',
-        creationDate: new Date(),
-        eventDate: new Date(),
+        creationDate: '',
+        eventDate: '',
         ubication: '',
         price: 0,
         owner_id: 0,
@@ -55,10 +55,6 @@ const EventsSlice = createSlice({
             state.EventSearched = [];
         },
 
-        updateView: (state, action: PayloadAction<Events>) => {
-            state.EventView = action.payload
-        },
-
         search_content: (state, action: PayloadAction<string>) => {
             state.searched = action.payload
         }
@@ -74,11 +70,11 @@ const EventsSlice = createSlice({
                 state.searchStatus = true;
             })
 
-            .addCase(fetchEvent.fulfilled, (state, action) => {
+            .addCase(fetchEvent.fulfilled, (state, action: PayloadAction<Events>) => {
                 state.EventView = action.payload
             })
     }
 })
 
 export default EventsSlice.reducer;
-export const { update_searchStatus, clearSearched, updateView, search_content} = EventsSlice.actions;
+export const { update_searchStatus, clearSearched, search_content} = EventsSlice.actions;

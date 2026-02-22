@@ -37,3 +37,6 @@ Devlogs:
 
 21 February 2026:
   - Today I fixed some small bugs I have in the Creation of Events.
+
+22 February 2026:
+  - Today I fixed some minor bugs, like the search bar in the navbar, if you was in the profile and you search something, it will fetch the events but it will not show what it should, so I Fixed that, another bug I fixed was the EventCard, It was not showing in profile page the Events that the user created
