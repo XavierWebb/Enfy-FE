@@ -6,6 +6,7 @@ import { useAppDispatch } from "../redux/hooks"
 import { SearchEvent } from "../requests/searchRequest"
 import { unwrapResult } from "@reduxjs/toolkit"
 import { clearSearched, search_content } from "../redux/eventsSlice"
+import { useLocation, useNavigate } from "react-router"
 
 const StyledBar = styled.input`
     background-color: #D9D9D9;
@@ -25,6 +26,9 @@ type FormFields = z.infer<typeof schema>
 
 export const SearchBar = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const validPaths = ['/']
 
     const {
         register,
@@ -35,6 +39,9 @@ export const SearchBar = () => {
     })
 
     const OnSubmit = (data: FormFields) => {
+        if(!validPaths.includes(location.pathname)){
+            navigate('/')
+        }
         dispatch(clearSearched());
         dispatch(search_content(data.text))
         dispatch(SearchEvent(data.text)).then(unwrapResult)
