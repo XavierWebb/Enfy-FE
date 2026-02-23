@@ -58,7 +58,7 @@ export const EventCard = ({event}: CardProps) => {
             <Button onClick={() => {
                 dispatch(fetchEvent(event.id))
                 navigate(`/view?event=${event.id}`)
-            }}>See Event</Button>
+            }}>View Event</Button>
         </StyledCard>
     )
 }
