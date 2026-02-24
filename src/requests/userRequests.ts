@@ -24,7 +24,7 @@ export const fetchUser = createAsyncThunk(
 
 export const fetchMe = createAsyncThunk(
     '/api/users/fetchMe',
-    async ({},{rejectWithValue}) => {
+    async (_, {rejectWithValue}) => {
         try {
             const response = await axios.get(`http://localhost:8000/api/users/fetchMe`, {
                 withCredentials: true

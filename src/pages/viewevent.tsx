@@ -9,12 +9,13 @@ import { fetchEvent } from "../requests/eventsRequest";
 import { Button } from "../components/button";
 import { formatUTCDate } from "../common/dateFormat";
 import { NavBar } from "../components/navbar";
+import { enableModal } from "../redux/modalsSlice";
 
 export const ViewEvent = () => {
     const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
     const event = searchParams.get('event');
-
+    const user = useSelector((state: RootState) => state.users.currentUser)
     const eventInfo = useSelector((state: RootState) => state.events.EventView);
 
 
@@ -26,7 +27,7 @@ export const ViewEvent = () => {
 
     return (
         <>
-            <NavBar/>
+            <NavBar />
             <PageDivisorTwo>
                 <Tittle_One>{eventInfo.name}</Tittle_One>
 
@@ -34,9 +35,33 @@ export const ViewEvent = () => {
                 <Text_One><strong>Entry Price: {eventInfo.price}$ USD</strong></Text_One>
                 <Text_One><strong>Description</strong></Text_One>
                 <Text_One>{eventInfo.description}</Text_One>
-                <div>
-                    <Button>Buy Entry</Button>
-                </div>
+                {eventInfo.owner_id == user.id ? (
+                    <Tittle_One>- - -[ You are the owner of this event ]- - -</Tittle_One>
+                ) : (
+                    <>
+                        {
+                            user.eventsBought.some((e) => e.id == eventInfo.id) ? (
+                                <>
+                                    <div>
+                                        <Button>View purchased tickets</Button>
+                                        <Button onClick={() => {
+                                            dispatch(enableModal('buyEvent'));
+                                        }}>Buy another ticket</Button>
+                                    </div>
+                                </>
+                            ) : (
+                                <div>
+                                    <Button onClick={() => {
+                                        dispatch(enableModal('buyEvent'));
+                                    }}>Buy ticket</Button>
+                                </div>
+                            )
+
+                        }
+                    </>
+                )
+                }
+
             </PageDivisorTwo>
         </>
     )

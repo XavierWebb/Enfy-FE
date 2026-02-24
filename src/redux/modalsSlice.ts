@@ -1,17 +1,19 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-type ModalsNames = 'register' | 'login' | 'createEvent'
+type ModalsNames = 'register' | 'login' | 'createEvent' | 'buyEvent'
 
 interface StateInterface {
     register: boolean,
     login: boolean,
     createEvent: boolean,
+    buyEvent: boolean
 }
 
 const initialState:StateInterface = {
     register: false,
     login: false,
-    createEvent: false
+    createEvent: false,
+    buyEvent: false,
 }
 
 
