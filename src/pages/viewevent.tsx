@@ -40,7 +40,7 @@ export const ViewEvent = () => {
                 ) : (
                     <>
                         {
-                            user.eventsBought.filter((e) => e.id == eventInfo.id) ? (
+                            user.eventsBought.some((e) => e.id == eventInfo.id) ? (
                                 <>
                                     <div>
                                         <Button>View purchased tickets</Button>
