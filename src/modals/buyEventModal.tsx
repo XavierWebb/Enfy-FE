@@ -54,6 +54,8 @@ export const BuyEventModal = () => {
 
             await dispatch(BuyEvent(newData)).then(unwrapResult)
             toast.success('Event purchased!')
+            reset();
+            dispatch(disableModal('buyEvent'))
         } catch(error: any) {
             toast.error(error)
         }
