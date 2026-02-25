@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { Text_One, Tittle_One } from "../components/texts";
 import { PageDivisorTwo } from "../components/divisor";
 import { useEffect } from "react";
@@ -17,7 +17,7 @@ export const ViewEvent = () => {
     const event = searchParams.get('event');
     const user = useSelector((state: RootState) => state.users.currentUser)
     const eventInfo = useSelector((state: RootState) => state.events.EventView);
-
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (eventInfo.id == 0) {
@@ -43,7 +43,9 @@ export const ViewEvent = () => {
                             user.eventsBought.some((e) => e.id == eventInfo.id) ? (
                                 <>
                                     <div>
-                                        <Button>View purchased tickets</Button>
+                                        <Button onClick={()=> {
+                                            navigate(`/tickets?event=${eventInfo.id}`)
+                                        }}>View purchased tickets</Button>
                                         <Button onClick={() => {
                                             dispatch(enableModal('buyEvent'));
                                         }}>Buy another ticket</Button>
