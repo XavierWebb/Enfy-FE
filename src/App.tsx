@@ -8,6 +8,7 @@ import type { RootState } from './redux/store'
 import { HomePage } from './pages/homepage'
 import { ViewEvent } from './pages/viewevent'
 import { ProfilePage } from './pages/profilePage'
+import { ViewTickets } from './pages/viewTickets'
 
 function App() {
   const user = useSelector((state:RootState) => state.users.currentUser)
@@ -22,6 +23,7 @@ function App() {
 
         <Route path='/view' element={<ViewEvent/>}/>
         <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/tickets' element={<ViewTickets/>}/>
       </Routes>
     </>
   )

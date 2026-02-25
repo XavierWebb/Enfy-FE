@@ -43,3 +43,6 @@ Devlogs:
 
 24 February 2026:
   - Today I Fixed a minor bug
+
+25 February 2026:
+  - Today I Implemented Ticket view, the user is now able to see his tickets for an event

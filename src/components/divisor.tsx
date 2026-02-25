@@ -12,7 +12,7 @@ export const PageDivisor = styled.div`
 `
 
 export const PageDivisorTwo = styled.div`
-      margin-top: 3rem;
+    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     margin-left: 10rem;
