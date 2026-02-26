@@ -55,7 +55,6 @@ export const HomePage = () => {
         dispatch(search_content(''))
         dispatch(clearSearched())
     }, [dispatch])
-
     return (
         <>
             <NavBar />

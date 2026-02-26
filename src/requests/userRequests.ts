@@ -87,3 +87,26 @@ export const loginUser = createAsyncThunk(
         }
     }
 )
+
+export const UpdateProfilePicture = createAsyncThunk(
+    '/api/users/updatePicture',
+    async (image: File, {rejectWithValue}) => {
+        try {
+            const formData = new FormData();
+
+            formData.append('image', image);
+
+            const response = await axios.post('http://localhost:8000/api/users/updatePicture', formData, {
+                withCredentials: true
+            })
+            
+            return response.data
+        } catch(error) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data.detail);
+            };
+
+            return rejectWithValue('Unexpected Error');
+        }
+    }
+)

@@ -25,6 +25,8 @@ interface ProfileProps {
 }
 
 const ProfileImage = styled.img`
+    object-fit: cover;
+    object-position: center;
     border-radius: 100%;
     border: 0.2rem solid white;
     height: 10rem;
@@ -54,11 +56,29 @@ const ProfileComponent = ({
     const navigate = useNavigate();
     const me = useSelector((state: RootState) => state.users.currentUser)
     const dispatch = useAppDispatch();
+    let Picture = `/userImages/default.webp`;
 
+    if (profilePicture !== 'default'){
+        Picture = `http://localhost:8000${profilePicture}`
+    }
     return (
         <PageDivisorTwo>
             <MainContainer>
-                <ProfileImage src={profilePicture} />
+                {
+                    id == me.id ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginRight: '1.5rem', gap:'1rem' }}>
+                            <ProfileImage src={Picture} />
+                            <div>
+                                <Button variant="secondary" onClick={()=> {
+                                    dispatch(enableModal('profilePicture'))
+                                }}>Change profile picture</Button>
+                            </div>
+                        </div>
+
+                    ) : (
+                        <ProfileImage src={Picture} />
+                    )
+                }
                 <div>
                     <Text_One><strong>{name}</strong></Text_One>
                     <Text_One><strong>Role:</strong> {role}</Text_One>
@@ -190,7 +210,7 @@ export const ProfilePage = () => {
             userId > 0 &&
             userId !== me.id
         ) {
-        dispatch(fetchUser(userId))
+            dispatch(fetchUser(userId))
         }
     }, [dispatch, userToSearch])
 
@@ -203,7 +223,7 @@ export const ProfilePage = () => {
                     id={me.id}
                     name={me.name}
                     role={me.role}
-                    profilePicture={`/userImages/${me.profilePicture}.webp`}
+                    profilePicture={me.profilePicture}
                     createdAt={me.createdAt}
                     eventsBought={me.eventsBought || []}
                     eventsCreated={me.eventsCreated || []}
@@ -232,7 +252,7 @@ export const ProfilePage = () => {
                 name={user.name}
                 role={user.role}
                 createdAt={user.createdAt}
-                profilePicture={`/userImages/${user.profilePicture}.webp`}
+                profilePicture={user.profilePicture}
                 eventsCreated={user.eventsCreated}
             />
         </>

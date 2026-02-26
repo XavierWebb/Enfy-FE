@@ -46,3 +46,6 @@ Devlogs:
 
 25 February 2026:
   - Today I Implemented Ticket view, the user is now able to see his tickets for an event
+
+26 February 2026:
+  - Today I Implemented the Button, Modal, And Request for change the user profile picture.
