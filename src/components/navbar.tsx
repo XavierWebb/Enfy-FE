@@ -16,6 +16,8 @@ const StyledNavbar = styled.div`
 
 const ProfilePicture = styled.img`
     cursor: pointer;
+    object-fit: cover;
+    object-position: center;
     border-radius: 100%;
     border: white 2px solid;
     height: 4rem;
@@ -35,7 +37,11 @@ export const NavBar = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const user = useSelector((state:RootState) => state.users.currentUser)
+    let profilePicture = `/userImages/default.webp`
 
+    if (user.profilePicture !== 'default'){
+        profilePicture = `http://localhost:8000${user.profilePicture}`
+    }
     return (
         <StyledNavbar>
             <Button variant="secondary" onClick={()=>{
@@ -51,7 +57,7 @@ export const NavBar = () => {
                     onClick={() => { }}
                 >{`ENG <`} </Button>
                 <ProfilePicture 
-                    src={`/userImages/${user.profilePicture}.webp`}
+                    src={profilePicture}
                 onClick={()=>{
                     navigate('/profile?user=me')
                 }}/>
