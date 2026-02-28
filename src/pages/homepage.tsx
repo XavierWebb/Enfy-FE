@@ -11,6 +11,7 @@ import { PageDivisor } from "../components/divisor";
 import { darkMode_palette } from "../common/styles";
 import { Button } from "../components/button";
 import { EventCard } from "../components/eventCard";
+import { fetchRecommendedEvents } from "../requests/eventsRequest";
 
 const Board = styled.div`
     border-radius: 1rem;
@@ -54,7 +55,9 @@ export const HomePage = () => {
         dispatch(update_searchStatus(false))
         dispatch(search_content(''))
         dispatch(clearSearched())
+        dispatch(fetchRecommendedEvents())
     }, [dispatch])
+
     return (
         <>
             <NavBar />

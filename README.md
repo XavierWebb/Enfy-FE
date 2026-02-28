@@ -49,3 +49,8 @@ Devlogs:
 
 26 February 2026:
   - Today I Implemented the Button, Modal, And Request for change the user profile picture.
+
+28 February 2026:
+  - Today I implemented the selection of preferred categories when creating an account, this allows the backend to provide the client with recommended events.
+
+  Every time the user gets into the home page it fetch recommended events

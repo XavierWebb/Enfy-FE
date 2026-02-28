@@ -15,8 +15,8 @@ const StyledModal = styled.div`
     padding: 2rem 6rem;
     border-radius: 1rem;
     z-index: 3;
-    max-width: 25%;
-    width: 25%;
+    max-width: 35%;
+    width: 35%;
     max-height: 60%;
     gap: 0.4rem;
     justify-content: center;
