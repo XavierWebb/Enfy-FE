@@ -48,6 +48,7 @@ export const createUser = createAsyncThunk(
         name: string,
         email: string,
         password: string,
+        categories: string[],
     }, { rejectWithValue }) => {
         try {
             const response = await axios.post('http://localhost:8000/api/users/createUser', data, {

@@ -52,12 +52,32 @@ export const BuyEvent = createAsyncThunk(
         id: number,
         master_card: number,
         security_number: number
-    }, {rejectWithValue}) => {
+    }, { rejectWithValue }) => {
         try {
 
             const response = await axios.post('http://localhost:8000/api/events/buyEvent', data, {
                 withCredentials: true
             })
+
+            return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(`Error: ${error.response.data.detail}`)
+            }
+
+            rejectWithValue('Unexpected Error')
+        }
+    }
+)
+
+export const fetchRecommendedEvents = createAsyncThunk(
+    '/api/events/fetchRecommendedEvents',
+    async (_, { rejectWithValue }) => {
+        try {
+
+            const response = await axios.get('http://localhost:8000/api/events/fetchRecommendedEvents', {
+                withCredentials: true
+            });
 
             return response.data;
         } catch (error) {
