@@ -6,7 +6,7 @@ import { SearchPage } from "./searchPage"
 import type { RootState } from "../redux/store";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Text_Two, Tittle_Two } from "../components/texts";
+import { Text_One, Text_Two, Tittle_Two } from "../components/texts";
 import { PageDivisor } from "../components/divisor";
 import { darkMode_palette } from "../common/styles";
 import { Button } from "../components/button";
@@ -50,14 +50,13 @@ const EventContainer = styled.div`
 export const HomePage = () => {
     const dispatch = useAppDispatch();
     const searchStatus = useSelector((state: RootState) => state.events.searchStatus)
-    const recommendedEvents = useSelector((state:RootState) => state.events.EventsRecommended)
+    const recommendedEvents = useSelector((state: RootState) => state.events.EventsRecommended)
     useEffect(() => {
         dispatch(update_searchStatus(false))
         dispatch(search_content(''))
         dispatch(clearSearched())
         dispatch(fetchRecommendedEvents())
     }, [dispatch])
-
     return (
         <>
             <NavBar />
@@ -80,14 +79,22 @@ export const HomePage = () => {
                             </Tittle_Two>
                             <EventContainer>
                                 {
-                                    recommendedEvents.map((e)=> {
-                                        return (
-                                            <EventCard
-                                                event={e}
-                                                key={e.id}
-                                            />
-                                        )
-                                    })
+                                    recommendedEvents.length == 0 ? (
+                                        <Text_One>[ We couldn't find an event that was of interest to you ]</Text_One>
+                                    ) : (
+                                        <>
+                                            {
+                                                recommendedEvents.map((e) => {
+                                                    return (
+                                                        <EventCard
+                                                            event={e}
+                                                            key={e.id}
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                    )
                                 }
                             </EventContainer>
                         </Category>

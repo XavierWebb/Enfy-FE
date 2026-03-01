@@ -45,7 +45,7 @@ export const LoginModal = () => {
 
 
     if (!modal){
-        return;
+        return null;
     }
 
     return(

@@ -12,9 +12,10 @@ type UserType = {
     profilePicture: string,
     eventsBought: Events[],
     eventsCreated: Events[],
+    mode: 'light' | 'dark',
 }
 
-type OtherUserType = Omit<UserType, 'email' | 'eventsBought'>
+type OtherUserType = Omit<UserType, 'email' | 'eventsBought' | 'mode'>
 
 interface StateProps {
     currentUser: UserType
@@ -31,6 +32,7 @@ const initialState: StateProps = {
         profilePicture: '',
         eventsBought: [],
         eventsCreated: [],
+        mode: 'dark',
     },
     OtherUser: {
         id: 0,
@@ -45,7 +47,11 @@ const initialState: StateProps = {
 const UsersSlice = createSlice({
     name: 'users',
     initialState,
-    reducers: {},
+    reducers: {
+        changeMode: (state) => {
+            state.currentUser.mode = state.currentUser.mode === 'light' ? 'dark' : 'light'
+        }
+    },
 
     extraReducers: builder => {
         builder
@@ -63,8 +69,11 @@ const UsersSlice = createSlice({
                 state.OtherUser = action.payload
             })
 
-            .addCase(fetchMe.fulfilled, (state, action: PayloadAction<UserType>)=> {
-                state.currentUser = action.payload
+            .addCase(fetchMe.fulfilled, (state, action)=> {
+                state.currentUser = {
+                    ...state.currentUser,
+                    ...action.payload
+                }
             })
 
             .addCase(createEvent.fulfilled, (state, action: PayloadAction<Events>) => {
@@ -74,3 +83,4 @@ const UsersSlice = createSlice({
 })
 
 export default UsersSlice.reducer;
+export const { changeMode } = UsersSlice.actions

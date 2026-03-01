@@ -103,7 +103,7 @@ export const RegisterModal = () => {
     }
 
     if (!modal) {
-        return;
+        return null;
     }
 
     return (
