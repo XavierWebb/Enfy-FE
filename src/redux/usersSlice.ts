@@ -56,10 +56,16 @@ const UsersSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(createUser.fulfilled, (state, action) => {
-                state.currentUser = action.payload
+                state.currentUser = {
+                    ...state.currentUser,
+                    ...action.payload
+                }
             })
             .addCase(loginUser.fulfilled, (state, action) => {
-                state.currentUser = action.payload
+                state.currentUser = {
+                    ...state.currentUser,
+                    ...action.payload
+                }
             })
 
             .addCase(loginUser.rejected, (_state, _action) => {

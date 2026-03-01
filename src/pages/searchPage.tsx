@@ -15,9 +15,9 @@ export const SearchPage = () => {
     const content = useSelector((state: RootState) => state.events.searched)
     if (events.length == 0) {
         return (
-            <>
+            <PageDivisorTwo>
                 <Tittle_One>We found no events related to your search</Tittle_One>
-            </>
+            </PageDivisorTwo>
         )
     }
     return (

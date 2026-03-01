@@ -1,17 +1,20 @@
 import styled from "styled-components"
 import { Tittle_One } from "../components/texts"
 import type React from "react"
+import { useSelector } from "react-redux"
+import type { RootState } from "../redux/store"
 
 interface ModalProps {
     children: React.ReactNode,
     title: string,
 }
 
-const StyledModal = styled.div`
+const StyledModal = styled.div<{Mode: 'dark' | 'light'}>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #131313;
+    background-color: ${({Mode}) => Mode === 'light' ? 'white' : '#131313'};
+    border: 1px ${({Mode}) => Mode === 'light' ? 'black' : 'transparent'} solid;
     padding: 2rem 6rem;
     border-radius: 1rem;
     z-index: 3;
@@ -37,9 +40,11 @@ export const BaseModal = ({
     children,
     title,
 }: ModalProps) => {
+
+    const Mode = useSelector((state:RootState) => state.users.currentUser.mode)
     return (
         <BlurBackground>
-            <StyledModal>
+            <StyledModal Mode={Mode}>
                 <Tittle_One>{title}</Tittle_One>
                 {children}
             </StyledModal>

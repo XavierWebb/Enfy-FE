@@ -9,10 +9,16 @@ import { HomePage } from './pages/homepage'
 import { ViewEvent } from './pages/viewevent'
 import { ProfilePage } from './pages/profilePage'
 import { ViewTickets } from './pages/viewTickets'
+import { useEffect } from 'react'
 
 function App() {
   const user = useSelector((state:RootState) => state.users.currentUser)
-  
+  const mode = useSelector((state:RootState) => state.users.currentUser.mode)
+
+  useEffect(()=> {
+    document.body.classList.remove('dark','light');
+    document.body.classList.add(mode);
+  },[mode])
   return (
     <>
       <ToastContainer theme='dark'/>
