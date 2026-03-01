@@ -58,7 +58,7 @@ export const CreateEventModal = () => {
     }
 
     if (!modal) {
-        return;
+        return null;
     }
 
     return (

@@ -47,7 +47,7 @@ export const EventCard = ({event}: CardProps) => {
     const dispatch = useAppDispatch();
 
     if (!event) {
-        return;
+        return null;
     }
     return (
         <StyledCard>

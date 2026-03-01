@@ -62,7 +62,7 @@ export const BuyEventModal = () => {
     }
 
     if (!modal){
-        return;
+        return null;
     }
 
     return (

@@ -111,3 +111,22 @@ export const UpdateProfilePicture = createAsyncThunk(
         }
     }
 )
+
+export const Logout = createAsyncThunk(
+    '/api/users/logout',
+    async(_, {rejectWithValue}) => {
+        try {
+            const response = await axios.post('http://localhost:8000/api/users/logout', {},{
+                withCredentials: true
+            })
+
+            return response.data
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data.detail);
+            };
+
+            return rejectWithValue('Unexpected Error');
+        }
+    }
+)

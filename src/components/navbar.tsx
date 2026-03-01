@@ -6,8 +6,11 @@ import { useAppDispatch } from "../redux/hooks"
 import { clearSearched, search_content, update_searchStatus } from "../redux/eventsSlice"
 import { useSelector } from "react-redux"
 import type { RootState } from "../redux/store"
+import { ProfileDropDown } from "./profiledropdown"
+import { disableModal, enableModal } from "../redux/modalsSlice"
 
 const StyledNavbar = styled.div`
+    position: relative;
     display: flex;
     align-items: center;
     width: 100%;
@@ -36,6 +39,7 @@ export const NavBar = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const dropdownmenu = useSelector((state: RootState) => state.modals.profileDropDown)
     const user = useSelector((state:RootState) => state.users.currentUser)
     let profilePicture = `/userImages/default.webp`
 
@@ -58,10 +62,16 @@ export const NavBar = () => {
                 >{`ENG <`} </Button>
                 <ProfilePicture 
                     src={profilePicture}
-                onClick={()=>{
-                    navigate('/profile?user=me')
-                }}/>
+                    onClick={()=>{
+                        if ( dropdownmenu == true){
+                            dispatch(disableModal('profileDropDown'))
+                        } else{
+                            dispatch(enableModal('profileDropDown'))
+                        }
+                    }}
+                />
             </RightContainer>
+            <ProfileDropDown/>
         </StyledNavbar>
     )
 }
