@@ -69,7 +69,7 @@ const ProfileComponent = ({
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginRight: '1.5rem', gap:'1rem' }}>
                             <ProfileImage src={Picture} />
                             <div>
-                                <Button variant="secondary" onClick={()=> {
+                                <Button variant="third" onClick={()=> {
                                     dispatch(enableModal('profilePicture'))
                                 }}>Change profile picture</Button>
                             </div>

@@ -1,21 +1,23 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import type { RootState } from "../redux/store";
 
-export const TextInput = styled.input`
+export const TextInput = styled.input<{Mode: 'dark' | 'light'}>`
     width: 100%;
     padding: 1rem;
-    background-color: #282828;
+    background-color: ${({Mode}) => Mode === 'light' ? 'white': '#282828'};
     border-radius: 0.5rem;
-    color: white;
-    border: 0px;
+    color: ${({Mode}) => Mode === 'light' ? '#282828': 'white'};
+    border: 0.1rem solid ${({Mode}) => Mode === 'light' ? '#282828': 'white'};
 `
 
-export const FileInput = styled.input`
+export const FileInput = styled.input<{Mode: 'dark' | 'light'}>`
     width: 100%;
     padding: 1rem;
-    background-color: #282828;
+    background-color: ${({Mode}) => Mode === 'light' ? 'white' : '#282828'};
     border-radius: 0.5rem;
-    color: white;
-    border: 0px;
+    color: ${({Mode}) => Mode === 'light' ? '#282828': 'white'};
+    border: 0.1rem solid ${({Mode}) => Mode === 'light' ? '#282828': 'white'};
 `
 
 
@@ -31,6 +33,7 @@ export const DateTimeInput = ({
     onBlur?: () => void;
     disabled?: boolean;
 }) => {
+    const Mode = useSelector((state: RootState) => state.users.currentUser.mode)
 
     const formatDateForInputLocal = (date: Date) => {
         const localDate = new Date(
@@ -48,6 +51,7 @@ export const DateTimeInput = ({
 
     return (
         <TextInput
+            Mode={Mode}
             type="datetime-local"
             value={parsedValue}
             onChange={onChange}

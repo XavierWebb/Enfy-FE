@@ -9,7 +9,8 @@ import type { RootState } from "../redux/store"
 import { ProfileDropDown } from "./profiledropdown"
 import { disableModal, enableModal } from "../redux/modalsSlice"
 
-const StyledNavbar = styled.div`
+const StyledNavbar = styled.div<{Mode: 'light' | 'dark'}>`
+    background-color: ${({Mode}) => Mode === 'light' ? '#ffffff' : '#000000'};
     position: relative;
     display: flex;
     align-items: center;
@@ -39,6 +40,7 @@ export const NavBar = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const Mode = useSelector((state: RootState) => state.users.currentUser.mode)
     const dropdownmenu = useSelector((state: RootState) => state.modals.profileDropDown)
     const user = useSelector((state:RootState) => state.users.currentUser)
     let profilePicture = `/userImages/default.webp`
@@ -47,7 +49,7 @@ export const NavBar = () => {
         profilePicture = `http://localhost:8000${user.profilePicture}`
     }
     return (
-        <StyledNavbar>
+        <StyledNavbar Mode={Mode}>
             <Button variant="secondary" onClick={()=>{
                 navigate('/')
                 dispatch(update_searchStatus(false))

@@ -10,7 +10,7 @@ import { Logout } from "../requests/userRequests"
 import { unwrapResult } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
 
-const DropDownMenu = styled.div`
+const DropDownMenu = styled.div<{Mode: 'light' | 'dark'}>`
     position: absolute;
     top: 100%;
     right: 0;
@@ -18,7 +18,8 @@ const DropDownMenu = styled.div`
     flex-direction: column;
     gap: 0.25rem;
 
-    border: white 0.1rem solid;
+    border: ${({Mode}) => Mode === 'light' ? '#282828': 'white'} 0.1rem solid;
+    background-color: ${({Mode}) => Mode === 'light' ? 'white': '#131313'};
     border-radius: 0.15rem;
 `
 
@@ -26,12 +27,13 @@ export const ProfileDropDown = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const isActive = useSelector((state: RootState) => state.modals.profileDropDown)
+    const Mode = useSelector((state: RootState) => state.users.currentUser.mode);
 
     if (!isActive) {
         return null;
     }
     return (
-        <DropDownMenu>
+        <DropDownMenu Mode={Mode}>
             <Button variant="secondary" onClick={() => {
                 navigate('/profile?user=me')
                 dispatch(disableModal('profileDropDown'))

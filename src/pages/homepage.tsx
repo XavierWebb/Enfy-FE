@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { Text_One, Text_Two, Tittle_Two } from "../components/texts";
 import { PageDivisor } from "../components/divisor";
-import { darkMode_palette } from "../common/styles";
+import { palette } from "../common/styles";
 import { Button } from "../components/button";
 import { EventCard } from "../components/eventCard";
 import { fetchRecommendedEvents } from "../requests/eventsRequest";
@@ -16,7 +16,7 @@ import { fetchRecommendedEvents } from "../requests/eventsRequest";
 const Board = styled.div`
     border-radius: 1rem;
     padding: 1rem;
-    border: 0.1rem solid ${darkMode_palette.gray};
+    border: 0.1rem solid ${palette.gray};
     width: 80%;
     max-width: 80%;
     display: flex;

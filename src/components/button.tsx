@@ -1,6 +1,8 @@
 import type React from "react"
 import styled from "styled-components";
-import { darkMode_palette, lightMode_palette } from "../common/styles";
+import { palette } from "../common/styles";
+import { useSelector } from "react-redux";
+import type { RootState } from "../redux/store";
 
 interface ButtonProps {
     children: React.ReactNode
@@ -12,68 +14,69 @@ interface ButtonProps {
 
 const variantMapper = {
     primary: {
-        darkMode: {
-            backgroundColor: darkMode_palette.green,
-            disabledBackgroundColor: darkMode_palette.gray,
-            hoverColor: darkMode_palette.light_green,
+        dark: {
+            backgroundColor: palette.green,
+            disabledBackgroundColor: palette.gray,
+            hoverColor: palette.light_green,
             textColor: 'white',
-            disabledTextColor: darkMode_palette.light_gray,
-
+            disabledTextColor: palette.light_gray,
             hoverTextColor: 'white',
         },
-        lightMode: {
-            textColor: 'black',
+        light: {
+            backgroundColor: palette.light_green,
+            textColor: 'white',
             disabledTextColor: '',
-            hoverTextColor: 'black',
-            disabledBackgroundColor: darkMode_palette.green,
+            hoverColor: palette.green,
+            hoverTextColor: 'white',
+            disabledBackgroundColor: palette.green,
         }
     },
     secondary: {
-        darkMode: {
+        dark: {
             backgroundColor: 'transparent',
             disabledBackgroundColor: 'transparent',
             hoverColor: 'transparent',
             disabledTextColor: '',
 
             textColor: 'white',
-            hoverTextColor: darkMode_palette.light_gray,
+            hoverTextColor: palette.light_gray,
         },
-        lightMode: {
+        light: {
             backgroundColor: 'transparent',
             disabledBackgroundColor: 'transparent',
             hoverColor: 'transparent',
             disabledTextColor: '',
 
             textColor: 'black',
-            hoverTextColor: lightMode_palette.light_gray,
+            hoverTextColor: palette.light_gray,
         }
     },
     third: {
-        darkMode: {
-            backgroundColor: darkMode_palette.gray,
-            disabledBackgroundColor: darkMode_palette.gray,
-            hoverColor: darkMode_palette.dark_gray,
+        dark: {
+            backgroundColor: palette.gray,
+            disabledBackgroundColor: palette.gray,
+            hoverColor: palette.dark_gray,
             disabledTextColor: '',
             textColor: 'white',
             hoverTextColor: 'white',
         },
-        lightMode: {
-            backgroundColor: 'transparent',
+        light: {
+            backgroundColor: palette.very_very_light_gray,
             disabledBackgroundColor: 'transparent',
-            hoverColor: 'transparent',
-            disabledTextColor: '',
+            hoverColor: palette.very_light_gray,
+            disabledTextColor: palette.light_gray,
             textColor: 'black',
-            hoverTextColor: lightMode_palette.light_gray,
+            hoverTextColor: 'black',
         }
     }
 }
 
-const StyledButton = styled.button<{ variant: 'primary' | 'secondary' | 'third', disabled: boolean }>`
+const StyledButton = styled.button<{ variant: 'primary' | 'secondary' | 'third', disabled: boolean, Mode: 'dark' | 'light' }>`
     border: 0;
-    background-color: ${({ variant, disabled }) => disabled ? variantMapper[variant].darkMode.disabledBackgroundColor : variantMapper[variant].darkMode.backgroundColor};
+    background-color: ${({ variant, disabled, Mode }) => disabled ? variantMapper[variant][Mode].disabledBackgroundColor : variantMapper[variant][Mode].backgroundColor};
     padding: 0.75rem 2rem;;
     text-align: center;
-    color: ${({ variant, disabled }) => disabled ? variantMapper[variant].darkMode.disabledTextColor : variantMapper[variant].darkMode.textColor};
+    color: ${({ variant, disabled, Mode }) => disabled ? variantMapper[variant][Mode].disabledTextColor : variantMapper[variant][Mode].textColor};
     font-family: 'Jost', sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
@@ -88,8 +91,8 @@ const StyledButton = styled.button<{ variant: 'primary' | 'secondary' | 'third',
     pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 
     &:hover {
-        background-color: ${({ variant, disabled }) => disabled ? variantMapper[variant].darkMode.disabledBackgroundColor : variantMapper[variant].darkMode.hoverColor};
-        color: ${({ variant, disabled }) => disabled ? variantMapper[variant].darkMode.disabledTextColor : variantMapper[variant].darkMode.hoverTextColor};
+        background-color: ${({ variant, disabled, Mode }) => disabled ? variantMapper[variant][Mode].disabledBackgroundColor : variantMapper[variant][Mode].hoverColor};
+        color: ${({ variant, disabled, Mode }) => disabled ? variantMapper[variant][Mode].disabledTextColor : variantMapper[variant][Mode].hoverTextColor};
     }
 
 `
@@ -101,8 +104,10 @@ export const Button = ({
     disabled = false,
     onClick,
 }: ButtonProps) => {
+    const Mode = useSelector((state: RootState) => state.users.currentUser.mode)
+    
     return (
-        <StyledButton variant={variant} type={type} onClick={onClick} disabled={disabled}>
+        <StyledButton Mode={Mode} variant={variant} type={type} onClick={onClick} disabled={disabled}>
             {children}
         </StyledButton>
     )

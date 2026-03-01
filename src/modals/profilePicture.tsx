@@ -24,7 +24,7 @@ type FormProps = z.infer<typeof schema>
 export const ProfilePictureModal = () => {
     const dispatch = useAppDispatch();
     const modal = useSelector((state: RootState) => state.modals.profilePicture)
-
+    const Mode = useSelector((state: RootState) => state.users.currentUser.mode)
     const {
         register,
         reset,
@@ -52,7 +52,7 @@ export const ProfilePictureModal = () => {
     return (
         <BaseModal title="Change Profile Picture">
             <form onSubmit={handleSubmit(OnSubmit)}>  
-                <FileInput type="file"
+                <FileInput type="file" Mode={Mode}
                     {...register('file')}
                 />
 

@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Text_Two, Tittle_Two } from "./texts"
 import { Button } from "./button"
-import { darkMode_palette } from "../common/styles"
+import { palette } from "../common/styles"
 import { useNavigate } from "react-router"
 import { useAppDispatch } from "../redux/hooks"
 import { fetchEvent } from "../requests/eventsRequest"
@@ -18,7 +18,7 @@ interface CardProps {
 const StyledCard = styled.div`
     padding: 2rem;
     border-radius: 1rem;
-    border: solid 0.15rem ${darkMode_palette.gray};
+    border: solid 0.15rem ${palette.gray};
     margin: 1rem;
     margin-top: 2rem;
     gap: 0.5rem;
