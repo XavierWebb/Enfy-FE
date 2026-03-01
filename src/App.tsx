@@ -10,6 +10,8 @@ import { ViewEvent } from './pages/viewevent'
 import { ProfilePage } from './pages/profilePage'
 import { ViewTickets } from './pages/viewTickets'
 import { useEffect } from 'react'
+import _i18n from './i18n'
+
 
 function App() {
   const user = useSelector((state:RootState) => state.users.currentUser)

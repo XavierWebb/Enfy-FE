@@ -13,6 +13,7 @@ import { useAppDispatch } from "../redux/hooks"
 import { useEffect } from "react"
 import { fetchMe, fetchUser } from "../requests/userRequests"
 import { enableModal } from "../redux/modalsSlice"
+import { useTranslation } from "react-i18next"
 
 interface ProfileProps {
     id: number,
@@ -57,8 +58,9 @@ const ProfileComponent = ({
     const me = useSelector((state: RootState) => state.users.currentUser)
     const dispatch = useAppDispatch();
     let Picture = `/userImages/default.webp`;
+    const { t } = useTranslation();
 
-    if (profilePicture !== 'default'){
+    if (profilePicture !== 'default') {
         Picture = `http://localhost:8000${profilePicture}`
     }
     return (
@@ -66,12 +68,12 @@ const ProfileComponent = ({
             <MainContainer>
                 {
                     id == me.id ? (
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginRight: '1.5rem', gap:'1rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginRight: '1.5rem', gap: '1rem' }}>
                             <ProfileImage src={Picture} />
                             <div>
-                                <Button variant="third" onClick={()=> {
+                                <Button variant="third" onClick={() => {
                                     dispatch(enableModal('profilePicture'))
-                                }}>Change profile picture</Button>
+                                }}>    {t('profile.changeProfilePictureButton')}</Button>
                             </div>
                         </div>
 
@@ -81,19 +83,19 @@ const ProfileComponent = ({
                 }
                 <div>
                     <Text_One><strong>{name}</strong></Text_One>
-                    <Text_One><strong>Role:</strong> {role}</Text_One>
-                    <Text_One><strong>Registered At:</strong> {formatUTCDate(createdAt)}</Text_One>
+                    <Text_One><strong>{t('profile.role')}</strong> {role}</Text_One>
+                    <Text_One><strong>{t('profile.registredAt')}</strong> {formatUTCDate(createdAt)}</Text_One>
                 </div>
             </MainContainer>
 
             {eventsBought && (
                 <>
 
-                    <Tittle_One>Purchased event tickets:</Tittle_One>
+                    <Tittle_One>{t('profile.purchasedEventTickets')}</Tittle_One>
                     {
                         eventsBought.length == 0
                             ? (
-                                <Text_One>- - -[ You haven't bought any event tickets yet ]- - -</Text_One>
+                                <Text_One>{t('profile.nothingPurchased')}</Text_One>
                             )
                             : (
                                 <EventContainer>
@@ -114,7 +116,7 @@ const ProfileComponent = ({
             {
                 eventsCreated && (
                     <>
-                        <Tittle_One>Events created:</Tittle_One>
+                        <Tittle_One>{t('profile.eventsCreated')}</Tittle_One>
                         {
                             eventsCreated.length == 0 ? (
                                 <>
@@ -124,28 +126,28 @@ const ProfileComponent = ({
                                                 {
                                                     role == 'Enthusiast' ? (
                                                         <>
-                                                            <Text_One>- - -[ You are not able to create any event yet ]- - -</Text_One>
+                                                            <Text_One>{t('profile.notAllowedToCreate')}</Text_One>
                                                             <div>
                                                                 <Button onClick={() => {
                                                                     navigate('/applications/events_creator')
-                                                                }}>Apply for create events</Button>
+                                                                }}>{t('profile.applyForCreateEvents')}</Button>
                                                             </div>
 
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <Text_One>- - -[ You haven't created any event yet ]- - -</Text_One>
+                                                            <Text_One>{t('profile.nothingCreatedYet')}</Text_One>
                                                             <div>
                                                                 <Button onClick={() => {
                                                                     dispatch(enableModal('createEvent'))
-                                                                }}>Create your first Event</Button>
+                                                                }}>{t('profile.createYourFirstEvent')}</Button>
                                                             </div>
                                                         </>
                                                     )
                                                 }
                                             </>
                                         ) : (
-                                            <Text_One>- - -[ This user has not yet created any events ]- - -</Text_One>
+                                            <Text_One>{t('profile.otherUserNotCreatedYet')}</Text_One>
                                         )
                                     }
 
@@ -167,7 +169,7 @@ const ProfileComponent = ({
                                             <div>
                                                 <Button onClick={() => {
                                                     dispatch(enableModal('createEvent'))
-                                                }}>Create a new Event</Button>
+                                                }}>{t('profile.createNewEvent')}</Button>
                                             </div>
                                         )
                                     }
@@ -188,6 +190,7 @@ export const ProfilePage = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const user = useSelector((state: RootState) => state.users.OtherUser)
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (me.id === 0) {
@@ -237,7 +240,18 @@ export const ProfilePage = () => {
             <>
                 <NavBar />
                 <PageDivisor>
-                    <Tittle_One>We search users by id, please use positive integers.</Tittle_One>
+                    <Tittle_One>{t('profile.invalidUser')}</Tittle_One>
+                </PageDivisor>
+            </>
+        )
+    }
+
+    if (user.id == 0) {
+        return (
+            <>
+                <NavBar />
+                <PageDivisor>
+                    <Tittle_One>{t('profile.userNotFound')}</Tittle_One>
                 </PageDivisor>
             </>
         )
