@@ -54,3 +54,9 @@ Devlogs:
   - Today I implemented the selection of preferred categories when creating an account, this allows the backend to provide the client with recommended events.
 
   Every time the user gets into the home page it fetch recommended events
+
+1 March 2026:
+
+  Today I implemented light and dark mode, which can be switched from the dropdown menu by clicking on the profile picture. I also added the logout feature.
+
+  I'm currently working on translations. I plan to have the following languages ​​available: Spanish, English, Russian, German, and Arabic. Today I finished the profile translations in Spanish and English.
