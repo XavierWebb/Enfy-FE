@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { BaseModal } from "./baseModal";
-import {z} from 'zod';
+import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ErrorText, Text_Two } from "../components/texts";
 import { TextInput } from "../components/input";
@@ -13,6 +13,8 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import { BuyEvent } from "../requests/eventsRequest";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { useTranslation } from "react-i18next";
+import { fetchMe } from "../requests/userRequests";
 
 const schema = z.object({
     master_card: z.string().max(16),
@@ -32,19 +34,21 @@ const StyledForm = styled.form`
 
 export const BuyEventModal = () => {
     const dispatch = useAppDispatch();
-    const modal = useSelector((state:RootState)=> state.modals.buyEvent)
-    const event = useSelector((state:RootState)=> state.events.EventView)
+    const modal = useSelector((state: RootState) => state.modals.buyEvent)
+    const event = useSelector((state: RootState) => state.events.EventView)
+    const mode = useSelector((state: RootState) => state.users.currentUser.mode)
+    const { t } = useTranslation();
 
-    const { 
+    const {
         handleSubmit,
-        formState: {errors},
+        formState: { errors },
         register,
         reset,
     } = useForm<FormProps>({
         resolver: zodResolver(schema),
     })
 
-    const OnSubmit = async(data: FormProps) => {
+    const OnSubmit = async (data: FormProps) => {
         try {
             const newData = {
                 id: event.id,
@@ -55,30 +59,34 @@ export const BuyEventModal = () => {
             await dispatch(BuyEvent(newData)).then(unwrapResult)
             toast.success('Event purchased!')
             reset();
+            dispatch(fetchMe())
             dispatch(disableModal('buyEvent'))
-        } catch(error: any) {
+        } catch (error: any) {
             toast.error(error)
         }
     }
 
-    if (!modal){
+    if (!modal) {
         return null;
     }
 
     return (
-        <BaseModal title="Buy Event">
+        <BaseModal title={t('buyEventModal.title')}>
             <StyledForm onSubmit={handleSubmit(OnSubmit)}>
 
-                <Text_Two>Mastercard</Text_Two>
+                <Text_Two>{t('buyEventModal.mastercard')}</Text_Two>
                 <TextInput
+                    Mode={mode}
                     placeholder="xxxx-xxxx-xxxx-xxxx"
                     {...register('master_card')}
                     type="number"
                 />
                 {errors.master_card && <ErrorText>{errors.master_card.message}</ErrorText>}
 
-                <Text_Two>Security Number</Text_Two>
+                <Text_Two>{t('buyEventModal.securityNumber')}</Text_Two>
                 <TextInput
+                    Mode={mode}
+
                     {...register('security_number')}
                     type="number"
                     placeholder="xxx"
@@ -87,11 +95,11 @@ export const BuyEventModal = () => {
                 {errors.security_number && <ErrorText>{errors.security_number.message}</ErrorText>}
 
                 <div>
-                    <Button variant="secondary" type="button" onClick={()=>{
+                    <Button variant="secondary" type="button" onClick={() => {
                         dispatch(disableModal('buyEvent'))
                         reset();
-                    }}>Cancel</Button>
-                    <Button type="submit">Buy</Button>
+                    }}>{t('buyEventModal.cancel')}</Button>
+                    <Button type="submit">{t('buyEventModal.buy')}</Button>
                 </div>
             </StyledForm>
         </BaseModal>

@@ -11,7 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ErrorText } from "../components/texts";
 import { toast } from "react-toastify";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { UpdateProfilePicture } from "../requests/userRequests";
+import { fetchMe, UpdateProfilePicture } from "../requests/userRequests";
+import { useTranslation } from "react-i18next";
 
 const schema = z.object({
   file: z
@@ -25,6 +26,8 @@ export const ProfilePictureModal = () => {
     const dispatch = useAppDispatch();
     const modal = useSelector((state: RootState) => state.modals.profilePicture)
     const Mode = useSelector((state: RootState) => state.users.currentUser.mode)
+    const {t} = useTranslation();
+
     const {
         register,
         reset,
@@ -44,13 +47,14 @@ export const ProfilePictureModal = () => {
             toast.success('Profile picture Updated!');
             reset();
             dispatch(disableModal('profilePicture'));
+            dispatch(fetchMe())
         } catch (error: any){
             toast.error(error);
         }
     }
 
     return (
-        <BaseModal title="Change Profile Picture">
+        <BaseModal title={t('changeProfilePicture.title')}>
             <form onSubmit={handleSubmit(OnSubmit)}>  
                 <FileInput type="file" Mode={Mode}
                     {...register('file')}
@@ -60,8 +64,8 @@ export const ProfilePictureModal = () => {
                 <div>
                     <Button variant="secondary" onClick={() => {
                         dispatch(disableModal('profilePicture'))
-                    }}>Cancel</Button>
-                    <Button type="submit">Change</Button>
+                    }}>{t('changeProfilePicture.cancel')}</Button>
+                    <Button type="submit">{t('changeProfilePicture.change')}</Button>
                 </div>
             </form>
         </BaseModal>

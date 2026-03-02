@@ -13,6 +13,8 @@ import { disableModal } from "../redux/modalsSlice"
 import { DateTimeInput, TextInput } from "../components/input"
 import styled from "styled-components"
 import { ErrorText } from "../components/texts"
+import { useTranslation } from "react-i18next"
+import { fetchMe } from "../requests/userRequests"
 
 const schema = z.object({
     name: z.string(),
@@ -35,7 +37,8 @@ const StyledForm = styled.form`
 export const CreateEventModal = () => {
     const modal = useSelector((state: RootState) => state.modals.createEvent)
     const dispatch = useAppDispatch();
-
+    const mode = useSelector((state: RootState) => state.users.currentUser.mode)
+    const {t} = useTranslation();
     const {
         register,
         handleSubmit,
@@ -51,6 +54,7 @@ export const CreateEventModal = () => {
             await dispatch(createEvent(data)).then(unwrapResult);
             toast.success('Event created successfuly');
             dispatch(disableModal('createEvent'));
+            dispatch(fetchMe())
             reset();
         } catch (error: any) {
             toast.error(error);
@@ -62,33 +66,38 @@ export const CreateEventModal = () => {
     }
 
     return (
-        <BaseModal title="Create Event">
+        <BaseModal title={t('createEventModal.title')}>
             <StyledForm onSubmit={handleSubmit(OnSubmit)}>
 
                 <TextInput
-                    placeholder="Name"
+                    Mode={mode}
+                    placeholder={t('createEventModal.name')}
                     {...register('name')}
                 />
 
                 {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
 
                 <TextInput
-                    placeholder="Description"
+                    Mode={mode}
+                    placeholder={t('createEventModal.description')}
                     {...register('description')}
                 />
 
                 {errors.description && <ErrorText>{errors.description.message}</ErrorText>}
 
                 <TextInput
-                    placeholder="Price"
+                    Mode={mode}
+                    placeholder={t('createEventModal.price')}
                     type="number"
-                    {...register('price', {valueAsNumber: true})}
+                    {...register('price', { valueAsNumber: true })}
                 />
 
                 {errors.price && <ErrorText>{errors.price.message}</ErrorText>}
 
                 <TextInput
-                    placeholder="ubication"
+                    Mode={mode}
+
+                    placeholder={t('createEventModal.ubication')}
                     {...register('ubication')}
                 />
 
@@ -119,11 +128,11 @@ export const CreateEventModal = () => {
                 <div>
                     <Button type='button' variant="secondary" onClick={() => {
                         dispatch(disableModal('createEvent'))
-                    }}>Cancel</Button>
+                    }}>{t('createEventModal.cancel')}</Button>
 
-                    <Button type="submit">Create</Button>
+                    <Button type="submit">{t('createEventModal.create')}</Button>
                 </div>
-                
+
             </StyledForm>
         </BaseModal>
     )

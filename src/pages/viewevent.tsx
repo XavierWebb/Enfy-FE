@@ -10,6 +10,7 @@ import { Button } from "../components/button";
 import { formatUTCDate } from "../common/dateFormat";
 import { NavBar } from "../components/navbar";
 import { enableModal } from "../redux/modalsSlice";
+import { useTranslation } from "react-i18next";
 
 export const ViewEvent = () => {
     const [searchParams] = useSearchParams();
@@ -18,6 +19,7 @@ export const ViewEvent = () => {
     const user = useSelector((state: RootState) => state.users.currentUser)
     const eventInfo = useSelector((state: RootState) => state.events.EventView);
     const navigate = useNavigate()
+    const {t} = useTranslation()
 
     useEffect(() => {
         if (eventInfo.id == 0) {
@@ -31,12 +33,12 @@ export const ViewEvent = () => {
             <PageDivisorTwo>
                 <Tittle_One>{eventInfo.name}</Tittle_One>
 
-                <Text_One><strong>Event Day: {formatUTCDate(eventInfo.eventDate)}</strong></Text_One>
-                <Text_One><strong>Entry Price: {eventInfo.price}$ USD</strong></Text_One>
-                <Text_One><strong>Description</strong></Text_One>
+                <Text_One><strong>{t('viewEvent.eventDay')}{formatUTCDate(eventInfo.eventDate)}</strong></Text_One>
+                <Text_One><strong>{t('viewEvent.price')}{eventInfo.price}$ USD</strong></Text_One>
+                <Text_One><strong>{t('viewEvent.description')}</strong></Text_One>
                 <Text_One>{eventInfo.description}</Text_One>
                 {eventInfo.owner_id == user.id ? (
-                    <Tittle_One>- - -[ You are the owner of this event ]- - -</Tittle_One>
+                    <Tittle_One>{t('viewEvent.youAreTheOwner')}</Tittle_One>
                 ) : (
                     <>
                         {
@@ -45,17 +47,17 @@ export const ViewEvent = () => {
                                     <div>
                                         <Button onClick={()=> {
                                             navigate(`/tickets?event=${eventInfo.id}`)
-                                        }}>View purchased tickets</Button>
+                                        }}>{t('viewEvent.viewTickets')}</Button>
                                         <Button onClick={() => {
                                             dispatch(enableModal('buyEvent'));
-                                        }}>Buy another ticket</Button>
+                                        }}>{t('viewEvent.buyAnotherTicket')}</Button>
                                     </div>
                                 </>
                             ) : (
                                 <div>
                                     <Button onClick={() => {
                                         dispatch(enableModal('buyEvent'));
-                                    }}>Buy ticket</Button>
+                                    }}>{t('viewEvent.buyTicket')}</Button>
                                 </div>
                             )
 
