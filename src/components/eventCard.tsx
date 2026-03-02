@@ -5,6 +5,7 @@ import { palette } from "../common/styles"
 import { useNavigate } from "react-router"
 import { useAppDispatch } from "../redux/hooks"
 import { fetchEvent } from "../requests/eventsRequest"
+import { useTranslation } from "react-i18next"
 
 interface CardProps {
     event: {
@@ -45,7 +46,7 @@ export const EventCard = ({event}: CardProps) => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-
+    const {t} = useTranslation()
     if (!event) {
         return null;
     }
@@ -54,11 +55,11 @@ export const EventCard = ({event}: CardProps) => {
             <Tittle_Two>{event.name}</Tittle_Two>
             <Line />
             <Text_Two>{event.description}</Text_Two>
-            <Text_Two><strong>Entry Price: {event.price}$ USD</strong></Text_Two>
+            <Text_Two><strong>{t('event.ticketPrice')} {event.price}$ USD</strong></Text_Two>
             <Button onClick={() => {
                 dispatch(fetchEvent(event.id))
                 navigate(`/view?event=${event.id}`)
-            }}>View Event</Button>
+            }}>{t('event.viewEvent')}</Button>
         </StyledCard>
     )
 }

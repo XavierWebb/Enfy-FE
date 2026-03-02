@@ -8,6 +8,7 @@ import { useSelector } from "react-redux"
 import type { RootState } from "../redux/store"
 import { ProfileDropDown } from "./profiledropdown"
 import { disableModal, enableModal } from "../redux/modalsSlice"
+import { LanguagesDrop } from "./languages"
 
 const StyledNavbar = styled.div<{Mode: 'light' | 'dark'}>`
     background-color: ${({Mode}) => Mode === 'light' ? '#ffffff' : '#000000'};
@@ -42,6 +43,7 @@ export const NavBar = () => {
     const dispatch = useAppDispatch();
     const Mode = useSelector((state: RootState) => state.users.currentUser.mode)
     const dropdownmenu = useSelector((state: RootState) => state.modals.profileDropDown)
+    const languages = useSelector((state: RootState) => state.modals.languages)
     const user = useSelector((state:RootState) => state.users.currentUser)
     let profilePicture = `/userImages/default.webp`
 
@@ -60,11 +62,23 @@ export const NavBar = () => {
             <RightContainer>
                 <Button
                     variant='secondary'
-                    onClick={() => { }}
-                >{`ENG <`} </Button>
+                    onClick={() => {
+                        if(dropdownmenu == true){
+                            dispatch(disableModal('profileDropDown'))
+                        }
+                        if (languages == true){
+                            dispatch(disableModal('languages'))
+                        } else {
+                            dispatch(enableModal('languages'))
+                        }
+                    }}
+                >{`${user.language} < `}</Button>
                 <ProfilePicture 
                     src={profilePicture}
                     onClick={()=>{
+                        if(languages == true){
+                            dispatch(disableModal('languages'))
+                        }
                         if ( dropdownmenu == true){
                             dispatch(disableModal('profileDropDown'))
                         } else{
@@ -74,6 +88,7 @@ export const NavBar = () => {
                 />
             </RightContainer>
             <ProfileDropDown/>
+            <LanguagesDrop/>
         </StyledNavbar>
     )
 }

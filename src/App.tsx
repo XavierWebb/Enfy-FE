@@ -10,28 +10,39 @@ import { ViewEvent } from './pages/viewevent'
 import { ProfilePage } from './pages/profilePage'
 import { ViewTickets } from './pages/viewTickets'
 import { useEffect } from 'react'
-import _i18n from './i18n'
+import i18n from './i18n'
 
 
 function App() {
-  const user = useSelector((state:RootState) => state.users.currentUser)
-  const mode = useSelector((state:RootState) => state.users.currentUser.mode)
+  const user = useSelector((state: RootState) => state.users.currentUser)
+  const mode = useSelector((state: RootState) => state.users.currentUser.mode)
+  const language = user.language || 'en'
 
-  useEffect(()=> {
-    document.body.classList.remove('dark','light');
+  useEffect(() => {
+  if (i18n.language !== language) {
+    i18n.changeLanguage(language)
+  }
+
+  document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr'
+}, [language])
+
+  useEffect(() => {
+    document.body.classList.remove('dark', 'light');
     document.body.classList.add(mode);
-  },[mode])
+  }, [mode])
+
+
   return (
     <>
-      <ToastContainer theme='dark'/>
-      <ModalsCompiler/>
+      <ToastContainer theme='dark' />
+      <ModalsCompiler />
       <Routes>
-        {user.name == '' ? <Route path='/' element={<LandingPage/>}/> 
-        : <Route path='/' element={<HomePage/>}/>}
+        {user.name == '' ? <Route path='/' element={<LandingPage />} />
+          : <Route path='/' element={<HomePage />} />}
 
-        <Route path='/view' element={<ViewEvent/>}/>
-        <Route path='/profile' element={<ProfilePage/>}/>
-        <Route path='/tickets' element={<ViewTickets/>}/>
+        <Route path='/view' element={<ViewEvent />} />
+        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/tickets' element={<ViewTickets />} />
       </Routes>
     </>
   )

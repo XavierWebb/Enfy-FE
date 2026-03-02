@@ -12,6 +12,7 @@ import { palette } from "../common/styles";
 import { Button } from "../components/button";
 import { EventCard } from "../components/eventCard";
 import { fetchRecommendedEvents } from "../requests/eventsRequest";
+import { useTranslation } from "react-i18next";
 
 const Board = styled.div`
     border-radius: 1rem;
@@ -51,6 +52,8 @@ export const HomePage = () => {
     const dispatch = useAppDispatch();
     const searchStatus = useSelector((state: RootState) => state.events.searchStatus)
     const recommendedEvents = useSelector((state: RootState) => state.events.EventsRecommended)
+    const {t} = useTranslation();
+
     useEffect(() => {
         dispatch(update_searchStatus(false))
         dispatch(search_content(''))
@@ -66,21 +69,20 @@ export const HomePage = () => {
                         <Board>
                             <InsideBoard>
 
-                                <Tittle_Two>Business Acount Aplication</Tittle_Two>
-                                <Text_Two>Your company needs to create an event? Apply and get the
-                                    authorization for create an event on our website.
+                                <Tittle_Two>{t('home.businessAplication')}</Tittle_Two>
+                                <Text_Two>{t('home.bam')}
                                 </Text_Two>
-                                <Button>Apply</Button>
+                                <Button>{t('home.apply')}</Button>
                             </InsideBoard>
                         </Board>
                         <Category>
                             <Tittle_Two>
-                                Recommended
+                                {t('home.recommended')}
                             </Tittle_Two>
                             <EventContainer>
                                 {
                                     recommendedEvents.length == 0 ? (
-                                        <Text_One>[ We couldn't find an event that was of interest to you ]</Text_One>
+                                        <Text_One>{t('home.notRecommended')}</Text_One>
                                     ) : (
                                         <>
                                             {
