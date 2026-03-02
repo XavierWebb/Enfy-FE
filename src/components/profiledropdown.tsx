@@ -9,6 +9,7 @@ import { disableModal } from "../redux/modalsSlice"
 import { Logout } from "../requests/userRequests"
 import { unwrapResult } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
+import { useTranslation } from "react-i18next"
 
 const DropDownMenu = styled.div<{Mode: 'light' | 'dark'}>`
     position: absolute;
@@ -28,7 +29,7 @@ export const ProfileDropDown = () => {
     const navigate = useNavigate();
     const isActive = useSelector((state: RootState) => state.modals.profileDropDown)
     const Mode = useSelector((state: RootState) => state.users.currentUser.mode);
-
+    const {t} = useTranslation()
     if (!isActive) {
         return null;
     }
@@ -37,10 +38,10 @@ export const ProfileDropDown = () => {
             <Button variant="secondary" onClick={() => {
                 navigate('/profile?user=me')
                 dispatch(disableModal('profileDropDown'))
-            }}>Profile</Button>
+            }}>{t('dropdownmenu.profile')}</Button>
             <Button variant="secondary" onClick={() => {
                 dispatch(changeMode())
-            }}>Change Mode</Button>
+            }}>{t('dropdownmenu.changeMode')}</Button>
             <Button variant="secondary" onClick={async () => {
                 try {
                     await dispatch(Logout()).then(unwrapResult)
@@ -51,7 +52,7 @@ export const ProfileDropDown = () => {
                 } catch (err: any) {
                     toast.error(err)
                 }
-            }}>Logout</Button>
+            }}>{t('dropdownmenu.logout')}</Button>
         </DropDownMenu>
     )
 }

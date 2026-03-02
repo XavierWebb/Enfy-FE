@@ -9,6 +9,7 @@ import { useAppDispatch } from "../redux/hooks"
 import { fetchTickets } from "../requests/ticketsRequest"
 import { Ticket } from "../components/ticket"
 import styled from "styled-components"
+import { useTranslation } from "react-i18next"
 
 const TicketContainer = styled.div`
     display: flex;
@@ -20,6 +21,8 @@ export const ViewTickets = () => {
     const dispatch = useAppDispatch();
     const event_url = searchParams.get('event');
     const tickets = useSelector((state: RootState) => state.tickets.tickets);
+    const {t} = useTranslation();
+
 
     useEffect(() => {
         dispatch(fetchTickets(Number(event_url)))
@@ -30,7 +33,7 @@ export const ViewTickets = () => {
             <>
                 <NavBar />
                 <PageDivisor>
-                    <Tittle_One>You have not purchased any tickets for this Event</Tittle_One>
+                    <Tittle_One>{t('viewTickets.notTickets')}</Tittle_One>
                 </PageDivisor>
             </>
         )
@@ -40,7 +43,7 @@ export const ViewTickets = () => {
         <>
             <NavBar />
             <PageDivisorTwo>
-                <Tittle_Two>Tickets for this event:</Tittle_Two>
+                <Tittle_Two>{t('viewTickets.tickets')}</Tittle_Two>
                 <TicketContainer>
                     {
                         tickets.map((e) => {

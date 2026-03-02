@@ -83,6 +83,9 @@ export const Tittle_Two = ({
     )
 }
 
-export const ErrorText = styled(Text_One)`
+export const ErrorText = styled.p`
+    font-family: 'Jost', sans-serif;
+    font-size: 1.5rem;
+    margin: 0;
     color: red;
 `

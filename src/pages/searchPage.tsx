@@ -4,6 +4,7 @@ import type { RootState } from "../redux/store"
 import { EventCard } from "../components/eventCard"
 import styled from "styled-components"
 import { PageDivisorTwo } from "../components/divisor"
+import { useTranslation } from "react-i18next"
 
 
 const EventContainer = styled.div`
@@ -13,16 +14,18 @@ const EventContainer = styled.div`
 export const SearchPage = () => {
     const events = useSelector((state: RootState) => state.events.EventSearched)
     const content = useSelector((state: RootState) => state.events.searched)
+    const {t} = useTranslation();
+
     if (events.length == 0) {
         return (
             <PageDivisorTwo>
-                <Tittle_One>We found no events related to your search</Tittle_One>
+                <Tittle_One>{t('searchPage.noEvents')}</Tittle_One>
             </PageDivisorTwo>
         )
     }
     return (
         <PageDivisorTwo>
-            <Tittle_Two>Your Results for: "{content}"</Tittle_Two>
+            <Tittle_Two>{t('searchPage.results')} "{content}"</Tittle_Two>
             <EventContainer>
                 {
                     events.map((e) => {

@@ -50,6 +50,7 @@ export const RegisterModal = () => {
     const dispatch = useAppDispatch();
     const [step, setStep] = useState(0)
     const CategoryList = Categories;
+    const mode = useSelector((state: RootState) => state.users.currentUser.mode)
 
     const {
         register,
@@ -98,7 +99,7 @@ export const RegisterModal = () => {
         const current = watch('categories') || []
         const next = current.filter(e => e !== name);
 
-        setValue('categories', next, { shouldValidate: true, shouldDirty: true, shouldTouch: true});
+        setValue('categories', next, { shouldValidate: true, shouldDirty: true, shouldTouch: true });
         CategoryList.push(name);
     }
 
@@ -114,18 +115,24 @@ export const RegisterModal = () => {
                         <>
                             <Text_One>username:</Text_One>
                             <TextInput
+                                Mode={mode}
+
                                 {...register('name')}
                             />
                             {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
 
                             <Text_One>email:</Text_One>
                             <TextInput
+                                Mode={mode}
+
                                 {...register('email')}
                             />
                             {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
 
                             <Text_One>password:</Text_One>
                             <TextInput
+                                Mode={mode}
+
                                 {...register('password')}
                             />
                             {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
@@ -171,22 +178,22 @@ export const RegisterModal = () => {
                                     CategoryList.length == 0 ? (
                                         <Text_Two>[ There are no more categories to select from ]</Text_Two>
                                     )
-                                    : (
-                                        <>
-                                            {
-                                                CategoryList.map((e, i) => {
-                                                    return (
-                                                        <Button
-                                                            type="button"
-                                                            variant="third"
-                                                            key={i}
-                                                            onClick={() => { handleCategorySelection(e, i) }}
-                                                        >{e}</Button>
-                                                    )
-                                                })
-                                            }
-                                        </>
-                                    )
+                                        : (
+                                            <>
+                                                {
+                                                    CategoryList.map((e, i) => {
+                                                        return (
+                                                            <Button
+                                                                type="button"
+                                                                variant="third"
+                                                                key={i}
+                                                                onClick={() => { handleCategorySelection(e, i) }}
+                                                            >{e}</Button>
+                                                        )
+                                                    })
+                                                }
+                                            </>
+                                        )
                                 }
                             </CategoriesContainer>
                             {errors.categories && <ErrorText>{errors.categories.message}</ErrorText>}

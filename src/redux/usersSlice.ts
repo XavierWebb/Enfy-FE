@@ -3,6 +3,8 @@ import { createUser, fetchMe, fetchUser, loginUser } from "../requests/userReque
 import type { Events } from "./eventsSlice";
 import { createEvent } from "../requests/eventsRequest";
 
+type languageType = 'en' | 'es' | 'ru' | 'ar' | 'de'
+
 type UserType = {
     id: number,
     name: string,
@@ -13,9 +15,10 @@ type UserType = {
     eventsBought: Events[],
     eventsCreated: Events[],
     mode: 'light' | 'dark',
+    language: languageType,
 }
 
-type OtherUserType = Omit<UserType, 'email' | 'eventsBought' | 'mode'>
+type OtherUserType = Omit<UserType, 'email' | 'eventsBought' | 'mode' | 'language'>
 
 interface StateProps {
     currentUser: UserType
@@ -33,6 +36,7 @@ const initialState: StateProps = {
         eventsBought: [],
         eventsCreated: [],
         mode: 'dark',
+        language: 'en'
     },
     OtherUser: {
         id: 0,
@@ -50,6 +54,9 @@ const UsersSlice = createSlice({
     reducers: {
         changeMode: (state) => {
             state.currentUser.mode = state.currentUser.mode === 'light' ? 'dark' : 'light'
+        },
+        changeLanguageRedux: (state, action: PayloadAction<languageType>) => {
+            state.currentUser.language = action.payload
         }
     },
 
@@ -89,4 +96,4 @@ const UsersSlice = createSlice({
 })
 
 export default UsersSlice.reducer;
-export const { changeMode } = UsersSlice.actions
+export const { changeMode, changeLanguageRedux } = UsersSlice.actions
