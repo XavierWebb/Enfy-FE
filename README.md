@@ -65,4 +65,4 @@ Devlogs:
   Today I Finished the translations to AR, RU, DE, EN and ES for all the app, except for the landing page, that will keep being in english.
 
 3 March 2026:
-  Today I FIxed Events creation minor bug & Recommended Events Fetch
+  Today I Fixed Events creation minor bug & Recommended Events Fetch, Also, I Implemented effects for the app
