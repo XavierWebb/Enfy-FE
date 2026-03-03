@@ -20,7 +20,10 @@ i18n.use(initReactI18next).init({
                     price: 'Price',
                     ubication: 'Ubication',
                     cancel: 'Cancel',
-                    create: 'Create'
+                    create: 'Create',
+                    next: 'Next',
+                    noSelected: `You haven't selected any category yet`,
+
                 },
 
                 changeProfilePicture: {
@@ -103,7 +106,9 @@ i18n.use(initReactI18next).init({
                     price: 'Precio',
                     ubication: 'Ubicacion',
                     cancel: 'Cancelar',
-                    create: 'Crear'
+                    create: 'Crear',
+                    next: 'Siguiente',
+                    noSelected: 'No has seleccionado ninguna categoria aun'
                 },
 
                 changeProfilePicture: {
@@ -185,7 +190,9 @@ i18n.use(initReactI18next).init({
                     price: 'Preis',
                     ubication: 'Ort',
                     cancel: 'Abbrechen',
-                    create: 'Erstellen'
+                    create: 'Erstellen',
+                    next: 'Nächste',
+                    noSelected: 'Sie haben noch keine Kategorie ausgewählt.'
                 },
 
                 changeProfilePicture: {
@@ -268,7 +275,10 @@ i18n.use(initReactI18next).init({
                     price: 'السعر',
                     ubication: 'الموقع',
                     cancel: 'إلغاء',
-                    create: 'إنشاء'
+                    create: 'إنشاء',
+                    next: 'التالي',
+                    noSelected: 'لم تقم باختيار أي فئات بعد.'
+
                 },
 
                 changeProfilePicture: {
@@ -351,7 +361,9 @@ i18n.use(initReactI18next).init({
                     price: 'Цена',
                     ubication: 'Место проведения',
                     cancel: 'Отмена',
-                    create: 'Создать'
+                    create: 'Создать',
+                    next: 'Следующий',
+                    noSelected: 'Вы еще не выбрали ни одной категории.'
                 },
 
                 changeProfilePicture: {

@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { SearchEvent } from "../requests/searchRequest";
-import { fetchEvent } from "../requests/eventsRequest";
+import { fetchEvent, fetchRecommendedEvents } from "../requests/eventsRequest";
 
 export interface Events {
     id: number,
@@ -72,6 +72,10 @@ const EventsSlice = createSlice({
 
             .addCase(fetchEvent.fulfilled, (state, action: PayloadAction<Events>) => {
                 state.EventView = action.payload
+            })
+
+            .addCase(fetchRecommendedEvents.fulfilled, (state, action)=> {
+                state.EventsRecommended = action.payload
             })
     }
 })

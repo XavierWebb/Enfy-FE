@@ -56,7 +56,7 @@ const variantMapper = {
             backgroundColor: palette.gray,
             disabledBackgroundColor: palette.gray,
             hoverColor: palette.dark_gray,
-            disabledTextColor: '',
+            disabledTextColor: palette.very_very_light_gray,
             textColor: 'white',
             hoverTextColor: 'white',
         },
