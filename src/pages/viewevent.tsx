@@ -11,6 +11,7 @@ import { formatUTCDate } from "../common/dateFormat";
 import { NavBar } from "../components/navbar";
 import { enableModal } from "../redux/modalsSlice";
 import { useTranslation } from "react-i18next";
+import { useObserver } from "../common/observer";
 
 export const ViewEvent = () => {
     const [searchParams] = useSearchParams();
@@ -20,6 +21,7 @@ export const ViewEvent = () => {
     const eventInfo = useSelector((state: RootState) => state.events.EventView);
     const navigate = useNavigate()
     const {t} = useTranslation()
+    const {ref, visible} = useObserver();
 
     useEffect(() => {
         if (eventInfo.id == 0) {
@@ -30,7 +32,7 @@ export const ViewEvent = () => {
     return (
         <>
             <NavBar />
-            <PageDivisorTwo>
+            <PageDivisorTwo ref={ref} $visible={visible}>
                 <Tittle_One>{eventInfo.name}</Tittle_One>
 
                 <Text_One><strong>{t('viewEvent.eventDay')}{formatUTCDate(eventInfo.eventDate)}</strong></Text_One>

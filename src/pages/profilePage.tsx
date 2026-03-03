@@ -14,6 +14,7 @@ import { useEffect } from "react"
 import { fetchMe, fetchUser } from "../requests/userRequests"
 import { enableModal } from "../redux/modalsSlice"
 import { useTranslation } from "react-i18next"
+import { useObserver } from "../common/observer"
 
 interface ProfileProps {
     id: number,
@@ -59,12 +60,12 @@ const ProfileComponent = ({
     const dispatch = useAppDispatch();
     let Picture = `/userImages/default.webp`;
     const { t } = useTranslation();
-
+    const {ref, visible} = useObserver();
     if (profilePicture !== 'default') {
         Picture = `http://localhost:8000${profilePicture}`
     }
     return (
-        <PageDivisorTwo>
+        <PageDivisorTwo ref={ref} $visible={visible}>
             <MainContainer>
                 {
                     id == me.id ? (
@@ -191,7 +192,7 @@ export const ProfilePage = () => {
     const navigate = useNavigate();
     const user = useSelector((state: RootState) => state.users.OtherUser)
     const { t } = useTranslation();
-
+    const {ref, visible} = useObserver();
     useEffect(() => {
         if (me.id === 0) {
             navigate('/')
@@ -239,7 +240,7 @@ export const ProfilePage = () => {
         return (
             <>
                 <NavBar />
-                <PageDivisor>
+                <PageDivisor ref={ref} $visible={visible}>
                     <Tittle_One>{t('profile.invalidUser')}</Tittle_One>
                 </PageDivisor>
             </>
@@ -250,7 +251,7 @@ export const ProfilePage = () => {
         return (
             <>
                 <NavBar />
-                <PageDivisor>
+                <PageDivisor ref={ref} $visible={visible}>
                     <Tittle_One>{t('profile.userNotFound')}</Tittle_One>
                 </PageDivisor>
             </>
