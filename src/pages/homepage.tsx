@@ -13,6 +13,7 @@ import { Button } from "../components/button";
 import { EventCard } from "../components/eventCard";
 import { fetchRecommendedEvents } from "../requests/eventsRequest";
 import { useTranslation } from "react-i18next";
+import { useObserver } from "../common/observer";
 
 const Board = styled.div`
     border-radius: 1rem;
@@ -53,6 +54,7 @@ export const HomePage = () => {
     const searchStatus = useSelector((state: RootState) => state.events.searchStatus)
     const recommendedEvents = useSelector((state: RootState) => state.events.EventsRecommended)
     const {t} = useTranslation();
+    const {ref, visible} = useObserver();
 
     useEffect(() => {
         dispatch(update_searchStatus(false))
@@ -60,12 +62,13 @@ export const HomePage = () => {
         dispatch(clearSearched())
         dispatch(fetchRecommendedEvents())
     }, [dispatch])
+
     return (
         <>
             <NavBar />
             {
                 searchStatus == false ? (
-                    <PageDivisor>
+                    <PageDivisor ref={ref} $visible={visible}>
                         <Board>
                             <InsideBoard>
 

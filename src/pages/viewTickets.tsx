@@ -10,6 +10,7 @@ import { fetchTickets } from "../requests/ticketsRequest"
 import { Ticket } from "../components/ticket"
 import styled from "styled-components"
 import { useTranslation } from "react-i18next"
+import { useObserver } from "../common/observer"
 
 const TicketContainer = styled.div`
     display: flex;
@@ -22,7 +23,7 @@ export const ViewTickets = () => {
     const event_url = searchParams.get('event');
     const tickets = useSelector((state: RootState) => state.tickets.tickets);
     const {t} = useTranslation();
-
+    const {ref, visible} = useObserver();
 
     useEffect(() => {
         dispatch(fetchTickets(Number(event_url)))
@@ -32,7 +33,7 @@ export const ViewTickets = () => {
         return (
             <>
                 <NavBar />
-                <PageDivisor>
+                <PageDivisor ref={ref} $visible={visible}>
                     <Tittle_One>{t('viewTickets.notTickets')}</Tittle_One>
                 </PageDivisor>
             </>
@@ -42,7 +43,7 @@ export const ViewTickets = () => {
     return (
         <>
             <NavBar />
-            <PageDivisorTwo>
+            <PageDivisorTwo ref={ref} $visible={visible}>
                 <Tittle_Two>{t('viewTickets.tickets')}</Tittle_Two>
                 <TicketContainer>
                     {

@@ -5,6 +5,7 @@ import { EventCard } from "../components/eventCard"
 import styled from "styled-components"
 import { PageDivisorTwo } from "../components/divisor"
 import { useTranslation } from "react-i18next"
+import { useObserver } from "../common/observer"
 
 
 const EventContainer = styled.div`
@@ -15,16 +16,17 @@ export const SearchPage = () => {
     const events = useSelector((state: RootState) => state.events.EventSearched)
     const content = useSelector((state: RootState) => state.events.searched)
     const {t} = useTranslation();
+    const {ref, visible} = useObserver()
 
     if (events.length == 0) {
         return (
-            <PageDivisorTwo>
+            <PageDivisorTwo ref={ref} $visible={visible}>
                 <Tittle_One>{t('searchPage.noEvents')}</Tittle_One>
             </PageDivisorTwo>
         )
     }
     return (
-        <PageDivisorTwo>
+        <PageDivisorTwo ref={ref} $visible={visible}>
             <Tittle_Two>{t('searchPage.results')} "{content}"</Tittle_Two>
             <EventContainer>
                 {
