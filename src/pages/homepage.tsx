@@ -14,6 +14,7 @@ import { EventCard } from "../components/eventCard";
 import { fetchRecommendedEvents } from "../requests/eventsRequest";
 import { useTranslation } from "react-i18next";
 import { useObserver } from "../common/observer";
+import { enableModal } from "../redux/modalsSlice";
 
 const Board = styled.div`
     border-radius: 1rem;
@@ -76,7 +77,9 @@ export const HomePage = () => {
                         <Tittle_Two>{t('home.businessAplication')}</Tittle_Two>
                         <Text_Two>{t('home.bam')}
                         </Text_Two>
-                        <Button>{t('home.apply')}</Button>
+                        <Button onClick={()=> {
+                            dispatch(enableModal('apply'))
+                        }}>{t('home.apply')}</Button>
                     </InsideBoard>
                 </Board>
                 <Category>

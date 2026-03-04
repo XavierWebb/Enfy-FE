@@ -135,7 +135,7 @@ const ProfileComponent = ({
                                                             <Text_One>{t('profile.notAllowedToCreate')}</Text_One>
                                                             <div>
                                                                 <Button onClick={() => {
-                                                                    navigate('/applications/events_creator')
+                                                                    dispatch(enableModal('apply'))
                                                                 }}>{t('profile.applyForCreateEvents')}</Button>
                                                             </div>
 

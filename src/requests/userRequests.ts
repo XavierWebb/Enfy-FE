@@ -130,3 +130,26 @@ export const Logout = createAsyncThunk(
         }
     }
 )
+
+export const BusinessAplication = createAsyncThunk(
+    '/api/users/business_aplication',
+    async(data:{
+        name: string,
+        contact: string,
+        theme: string,
+    }, {rejectWithValue}) => {
+        try{
+            const response = await axios.post('http://localhost:8000/api/users/business_aplication', data, {
+                withCredentials: true
+            })
+
+            return response.data
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response){
+                return rejectWithValue(error.response.data.detail);
+            };
+            
+            return rejectWithValue('Unexpected Error');
+        }
+    }
+)

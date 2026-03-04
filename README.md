@@ -69,3 +69,5 @@ Devlogs:
 
 4 March 2026:
   Today I made the app responsive, adding mobile support, and I made sure that all components looked good on mobile.
+
+  Also I implemented the business aplication for companies, so they can get access to create events
