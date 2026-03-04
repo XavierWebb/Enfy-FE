@@ -1,3 +1,4 @@
+import { ApplyModal } from "./applyModal";
 import { BuyEventModal } from "./buyEventModal";
 import { CreateEventModal } from "./createEventsModal";
 import { LoginModal } from "./loginModal";
@@ -12,6 +13,7 @@ export const ModalsCompiler = () => {
             <CreateEventModal/>
             <BuyEventModal/>
             <ProfilePictureModal/>
+            <ApplyModal/>
         </>
     )
 };

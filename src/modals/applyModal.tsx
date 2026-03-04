@@ -19,6 +19,7 @@ const StyledForm = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
 `
 
 const schema = z.object({
@@ -33,9 +34,6 @@ export const ApplyModal = () => {
     const modal = useSelector((state: RootState) => state.modals.apply);
     const dispatch = useAppDispatch();
     const mode = useSelector((state: RootState) => state.users.currentUser.mode)
-    if (!modal) {
-        return null;
-    };
 
     const {
         register,
@@ -57,11 +55,15 @@ export const ApplyModal = () => {
         try {
             await dispatch(BusinessAplication(data)).then(unwrapResult)
             dispatch(disableModal('apply'));
+            toast.success('Aplication Submited!')
             reset();
         } catch (err: any) {
             toast.error(err)
         }
     }
+    if (!modal) {
+        return null;
+    };
     return (
         <BaseModal title="Business Aplication">
             <StyledForm onSubmit={handleSubmit(OnSubmit)}>
