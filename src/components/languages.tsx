@@ -4,7 +4,6 @@ import styled from "styled-components"
 import { Button } from "./button"
 import { useTranslation } from "react-i18next"
 import { useAppDispatch } from "../redux/hooks"
-import { disableModal } from "../redux/modalsSlice"
 import { changeLanguageRedux } from "../redux/usersSlice"
 
 const DropDownMenu = styled.div<{Mode: 'light' | 'dark'}>`
@@ -18,6 +17,10 @@ const DropDownMenu = styled.div<{Mode: 'light' | 'dark'}>`
     border: ${({Mode}) => Mode === 'light' ? '#282828': 'white'} 0.1rem solid;
     background-color: ${({Mode}) => Mode === 'light' ? 'white': '#131313'};
     border-radius: 0.15rem;
+
+    @media(max-width: 768px){
+        right: 50%;
+    }
 `
 
 export const LanguagesDrop = () => {

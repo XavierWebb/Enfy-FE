@@ -39,11 +39,16 @@ const MainContainer = styled.div`
     display: flex;
     gap: 2rem;
     align-items: center;
+    
 `
 
 const EventContainer = styled.div`
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+
+    @media(max-width: 768px){
+        justify-content: center;
+    }
 `
 
 const ProfileComponent = ({
@@ -193,6 +198,7 @@ export const ProfilePage = () => {
     const user = useSelector((state: RootState) => state.users.OtherUser)
     const { t } = useTranslation();
     const {ref, visible} = useObserver();
+    
     useEffect(() => {
         if (me.id === 0) {
             navigate('/')

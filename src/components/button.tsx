@@ -74,7 +74,7 @@ const variantMapper = {
 const StyledButton = styled.button<{ variant: 'primary' | 'secondary' | 'third', disabled: boolean, Mode: 'dark' | 'light' }>`
     border: 0;
     background-color: ${({ variant, disabled, Mode }) => disabled ? variantMapper[variant][Mode].disabledBackgroundColor : variantMapper[variant][Mode].backgroundColor};
-    padding: 0.75rem 2rem;;
+    padding: 0.75rem 2rem;
     text-align: center;
     color: ${({ variant, disabled, Mode }) => disabled ? variantMapper[variant][Mode].disabledTextColor : variantMapper[variant][Mode].textColor};
     font-family: 'Jost', sans-serif;
@@ -93,6 +93,10 @@ const StyledButton = styled.button<{ variant: 'primary' | 'secondary' | 'third',
     &:hover {
         background-color: ${({ variant, disabled, Mode }) => disabled ? variantMapper[variant][Mode].disabledBackgroundColor : variantMapper[variant][Mode].hoverColor};
         color: ${({ variant, disabled, Mode }) => disabled ? variantMapper[variant][Mode].disabledTextColor : variantMapper[variant][Mode].hoverTextColor};
+    }
+
+    @media (max-width: 768px){
+        padding: 0.5rem 1.75rem;
     }
 
 `

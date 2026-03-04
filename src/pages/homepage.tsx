@@ -47,15 +47,18 @@ const Category = styled.div`
 
 const EventContainer = styled.div`
     display: flex;
+    flex-wrap: wrap;
+    @media(max-width: 768px){
+        justify-content: center;
+    }
 `
 
 export const HomePage = () => {
     const dispatch = useAppDispatch();
-    const searchStatus = useSelector((state: RootState) => state.events.searchStatus)
     const recommendedEvents = useSelector((state: RootState) => state.events.EventsRecommended)
-    const {t} = useTranslation();
-    const {ref, visible} = useObserver();
-
+    const { t } = useTranslation();
+    const { ref, visible } = useObserver();
+    
     useEffect(() => {
         dispatch(update_searchStatus(false))
         dispatch(search_content(''))
@@ -66,46 +69,42 @@ export const HomePage = () => {
     return (
         <>
             <NavBar />
-            {
-                searchStatus == false ? (
-                    <PageDivisor ref={ref} $visible={visible}>
-                        <Board>
-                            <InsideBoard>
+            <PageDivisor ref={ref} $visible={visible}>
+                <Board>
+                    <InsideBoard>
 
-                                <Tittle_Two>{t('home.businessAplication')}</Tittle_Two>
-                                <Text_Two>{t('home.bam')}
-                                </Text_Two>
-                                <Button>{t('home.apply')}</Button>
-                            </InsideBoard>
-                        </Board>
-                        <Category>
-                            <Tittle_Two>
-                                {t('home.recommended')}
-                            </Tittle_Two>
-                            <EventContainer>
-                                {
-                                    recommendedEvents.length == 0 ? (
-                                        <Text_One>{t('home.notRecommended')}</Text_One>
-                                    ) : (
-                                        <>
-                                            {
-                                                recommendedEvents.map((e) => {
-                                                    return (
-                                                        <EventCard
-                                                            event={e}
-                                                            key={e.id}
-                                                        />
-                                                    )
-                                                })
-                                            }
-                                        </>
-                                    )
-                                }
-                            </EventContainer>
-                        </Category>
-                    </PageDivisor>
-                ) : <SearchPage />
-            }
+                        <Tittle_Two>{t('home.businessAplication')}</Tittle_Two>
+                        <Text_Two>{t('home.bam')}
+                        </Text_Two>
+                        <Button>{t('home.apply')}</Button>
+                    </InsideBoard>
+                </Board>
+                <Category>
+                    <Tittle_Two>
+                        {t('home.recommended')}
+                    </Tittle_Two>
+                    <EventContainer>
+                        {
+                            recommendedEvents.length == 0 ? (
+                                <Text_One>{t('home.notRecommended')}</Text_One>
+                            ) : (
+                                <>
+                                    {
+                                        recommendedEvents.map((e) => {
+                                            return (
+                                                <EventCard
+                                                    event={e}
+                                                    key={e.id}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </>
+                            )
+                        }
+                    </EventContainer>
+                </Category>
+            </PageDivisor>
 
         </>
     )

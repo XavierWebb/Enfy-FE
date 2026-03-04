@@ -66,3 +66,6 @@ Devlogs:
 
 3 March 2026:
   Today I Fixed Events creation minor bug & Recommended Events Fetch, Also, I Implemented effects for the app
+
+4 March 2026:
+  Today I made the app responsive, adding mobile support, and I made sure that all components looked good on mobile.

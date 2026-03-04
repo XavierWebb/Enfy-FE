@@ -6,7 +6,6 @@ export const PageDivisor = styled.div<{ $visible: boolean }>`
     flex-direction: column;
     margin-left: 10rem;
     margin-right: 10rem;
-    height: 100vh;
     align-items: center;
     gap: 1rem;
 
@@ -22,6 +21,11 @@ export const PageDivisor = styled.div<{ $visible: boolean }>`
             }
         `
     }
+
+    @media(max-width: 768px){
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
 `
 
 export const PageDivisorTwo = styled.div<{$visible: boolean}>`
@@ -30,7 +34,6 @@ export const PageDivisorTwo = styled.div<{$visible: boolean}>`
     flex-direction: column;
     margin-left: 10rem;
     margin-right: 10rem;
-    height: 100vh;
     gap: 1rem;
     
     & > * {
@@ -44,5 +47,10 @@ export const PageDivisorTwo = styled.div<{$visible: boolean}>`
                 opacity: 1;
             }
         `
+    }
+
+    @media(max-width: 768px){
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 `

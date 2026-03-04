@@ -12,6 +12,10 @@ export const Styled_Tittle_One = styled.h1<{Mode: 'dark' | 'light'}>`
     font-family: 'Jost', sans-serif;
     font-size: 2.5rem;
     font-weight: 800;
+
+    @media(max-width: 768px){
+        font-size: 2rem;
+    }
 `
 
 export const Styled_Tittle_Two = styled.h1<{Mode: 'dark' | 'light'}>`
@@ -19,6 +23,9 @@ export const Styled_Tittle_Two = styled.h1<{Mode: 'dark' | 'light'}>`
     font-family: 'Jost', sans-serif;
     font-size: 2rem;
     font-weight: 800;
+    @media(max-width: 768px){
+        font-size: 1.5rem;
+    }
 `
 
 export const Styled_Text_One = styled.p<{Mode: 'dark' | 'light'}>`
