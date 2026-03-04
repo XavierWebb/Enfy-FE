@@ -26,13 +26,20 @@ const StyledCard = styled.div`
     margin-bottom: 2rem;
     max-width: 25rem;
     width: 33rem;
-    max-height: 23rem;
-    height: 23rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+
+    @media(max-width: 768px){
+        width: 15rem;
+        padding: 0.5rem;
+        max-width: 15rem;
+        gap: 0.1rem;
+        height: auto;
+        
+    }
 `
 
 const Line = styled.div`

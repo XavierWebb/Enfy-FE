@@ -11,6 +11,7 @@ import { ProfilePage } from './pages/profilePage'
 import { ViewTickets } from './pages/viewTickets'
 import { useEffect } from 'react'
 import i18n from './i18n'
+import { SearchPage } from './pages/searchPage'
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path='/view' element={<ViewEvent />} />
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/tickets' element={<ViewTickets />} />
+        <Route path='/search' element={<SearchPage />} />
       </Routes>
     </>
   )

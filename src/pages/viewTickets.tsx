@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import type { RootState } from "../redux/store"
-import { useSearchParams } from "react-router"
+import { useNavigate, useSearchParams } from "react-router"
 import { PageDivisor, PageDivisorTwo } from "../components/divisor"
 import { Tittle_One, Tittle_Two } from "../components/texts"
 import { NavBar } from "../components/navbar"
@@ -15,6 +15,7 @@ import { useObserver } from "../common/observer"
 const TicketContainer = styled.div`
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
 `
 
 export const ViewTickets = () => {
@@ -22,10 +23,17 @@ export const ViewTickets = () => {
     const dispatch = useAppDispatch();
     const event_url = searchParams.get('event');
     const tickets = useSelector((state: RootState) => state.tickets.tickets);
-    const {t} = useTranslation();
-    const {ref, visible} = useObserver();
+    const { t } = useTranslation();
+    const { ref, visible } = useObserver();
+
+    const user = useSelector((state: RootState) => state.users.currentUser)
+    const navigate = useNavigate();
+
 
     useEffect(() => {
+        if (user.id == 0) {
+            navigate('/')
+        }
         dispatch(fetchTickets(Number(event_url)))
     }, [dispatch])
 

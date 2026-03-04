@@ -16,6 +16,10 @@ const StyledBar = styled.input`
     font-size: 1.25rem;
     font-weight: 600;
     width: 35rem;
+
+    @media(max-width: 768px){
+        width: 100%;
+    }
 `
 
 const schema = z.object({
@@ -28,7 +32,7 @@ export const SearchBar = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const validPaths = ['/']
+    const validPaths = ['/search']
 
     const {
         register,
@@ -40,7 +44,7 @@ export const SearchBar = () => {
 
     const OnSubmit = (data: FormFields) => {
         if(!validPaths.includes(location.pathname)){
-            navigate('/')
+            navigate('/search')
         }
         dispatch(clearSearched());
         dispatch(search_content(data.text))

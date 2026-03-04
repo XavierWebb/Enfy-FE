@@ -40,12 +40,18 @@ const LandingLimit = styled.div`
     height: 100vh;
     justify-content: flex-end;
     align-items: flex-end;
+
+    @media (max-width: 768px) {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
 `
 
 export const LandingPage = () => {
     const dispatch = useAppDispatch();
     const {ref, visible} = useObserver();
 
+    
     return (
         <>
         <LandingBackground/>

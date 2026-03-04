@@ -80,6 +80,7 @@ export const CreateEventModal = () => {
             toast.success('Event created successfuly');
             dispatch(disableModal('createEvent'));
             dispatch(fetchMe())
+            setStep(1);
             reset();
         } catch (error: any) {
             toast.error(error);

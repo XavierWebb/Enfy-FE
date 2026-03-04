@@ -20,10 +20,13 @@ export const ViewEvent = () => {
     const user = useSelector((state: RootState) => state.users.currentUser)
     const eventInfo = useSelector((state: RootState) => state.events.EventView);
     const navigate = useNavigate()
-    const {t} = useTranslation()
-    const {ref, visible} = useObserver();
+    const { t } = useTranslation()
+    const { ref, visible } = useObserver();
 
     useEffect(() => {
+        if (user.id == 0) {
+            navigate('/')
+        }
         if (eventInfo.id == 0) {
             dispatch(fetchEvent(Number(event)))
         }
@@ -47,7 +50,7 @@ export const ViewEvent = () => {
                             user.eventsBought.some((e) => e.id == eventInfo.id) ? (
                                 <>
                                     <div>
-                                        <Button onClick={()=> {
+                                        <Button onClick={() => {
                                             navigate(`/tickets?event=${eventInfo.id}`)
                                         }}>{t('viewEvent.viewTickets')}</Button>
                                         <Button onClick={() => {

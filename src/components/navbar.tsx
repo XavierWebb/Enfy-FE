@@ -17,6 +17,12 @@ const StyledNavbar = styled.div<{Mode: 'light' | 'dark'}>`
     align-items: center;
     width: 100%;
     gap: 1rem;
+
+    @media(max-width: 768px){
+        gap: 0.1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 `
 
 const ProfilePicture = styled.img`
@@ -35,6 +41,9 @@ const RightContainer = styled.div`
     margin-left: auto;
     margin-right: 2rem;
     gap: 1rem;
+    @media(max-width: 768px){
+        margin-left: 0;
+    }
 `
 
 export const NavBar = () => {

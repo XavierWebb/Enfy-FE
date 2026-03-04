@@ -35,6 +35,12 @@ const StyledModal = styled.div<{Mode: 'dark' | 'light', $visible: boolean}>`
         }
 
     `}
+
+    @media(max-width: 768px){
+        padding:1rem;
+        max-width: 100%;
+        width: 100%;
+    }
 `
 
 const BlurBackground = styled.div<{$visible: boolean}>`
