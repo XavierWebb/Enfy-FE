@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { createUser, fetchMe, fetchUser, loginUser } from "../requests/userRequests";
+import { BusinessAplication, createUser, fetchMe, fetchUser, loginUser } from "../requests/userRequests";
 import type { Events } from "./eventsSlice";
 import { createEvent } from "../requests/eventsRequest";
 
@@ -91,6 +91,14 @@ const UsersSlice = createSlice({
 
             .addCase(createEvent.fulfilled, (state, action: PayloadAction<Events>) => {
                 state.currentUser.eventsCreated.push(action.payload)
+            })
+
+            .addCase(BusinessAplication.fulfilled, (_state, _action) => {
+                console.log('Aplication Completed')
+            })
+
+            .addCase(BusinessAplication.rejected, (_state, _action) => {
+                console.log('Error Submiting Business Aplication')
             })
     }
 })
