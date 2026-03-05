@@ -23,7 +23,6 @@ export const AcceptAplication = createAsyncThunk(
     '/api/admin/AcceptAplication',
     async ( id: number,{ rejectWithValue }) => {
         try {
-            console.log(id)
             const response = await axios.post('http://localhost:8000/api/admin/accept_application', {id}, {withCredentials: true})
 
             return response.data;
