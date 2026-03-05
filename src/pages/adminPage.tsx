@@ -64,14 +64,6 @@ export const AdminPage = () => {
                             dispatch(clearAplications())
                         }
                     }}>View Business Aplications</Button>
-
-                    <Button onClick={() => {
-
-                    }}>Search User by ID</Button>
-
-                    <Button onClick={() => {
-
-                    }}>Search User by email</Button>
                 </OptionsContainer>
                 <Line />
                 <AplicationsContainer>
