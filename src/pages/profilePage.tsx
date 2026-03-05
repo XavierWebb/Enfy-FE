@@ -60,7 +60,6 @@ const ProfileComponent = ({
     eventsBought,
     eventsCreated
 }: ProfileProps) => {
-    const navigate = useNavigate();
     const me = useSelector((state: RootState) => state.users.currentUser)
     const dispatch = useAppDispatch();
     let Picture = `/userImages/default.webp`;
