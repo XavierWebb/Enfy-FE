@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const BE_URL = import.meta.env.BE_URL
 
 export const fetchUser = createAsyncThunk(
     '/api/users/fetchUser',
     async (id: number, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/users/fetchUser/${id}`, {
+            const response = await axios.get(`${BE_URL}/api/users/fetchUser/${id}`, {
                 withCredentials: true
             })
 
@@ -26,7 +27,7 @@ export const fetchMe = createAsyncThunk(
     '/api/users/fetchMe',
     async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/users/fetchMe`, {
+            const response = await axios.get(`${BE_URL}/api/users/fetchMe`, {
                 withCredentials: true
             })
 
@@ -51,7 +52,7 @@ export const createUser = createAsyncThunk(
         categories: string[],
     }, { rejectWithValue }) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/users/createUser', data, {
+            const response = await axios.post(`${BE_URL}/api/users/createUser`, data, {
                 withCredentials: true
             })
 
@@ -74,7 +75,7 @@ export const loginUser = createAsyncThunk(
         password: string,
     }, { rejectWithValue }) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/users/loginUser', data, {
+            const response = await axios.post(`${BE_URL}/api/users/loginUser`, data, {
                 withCredentials: true
             })
 
@@ -97,7 +98,7 @@ export const UpdateProfilePicture = createAsyncThunk(
 
             formData.append('image', image);
 
-            const response = await axios.post('http://localhost:8000/api/users/updatePicture', formData, {
+            const response = await axios.post(`${BE_URL}/api/users/updatePicture`, formData, {
                 withCredentials: true
             })
             
@@ -116,7 +117,7 @@ export const Logout = createAsyncThunk(
     '/api/users/logout',
     async(_, {rejectWithValue}) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/users/logout', {},{
+            const response = await axios.post(`${BE_URL}/api/users/logout`, {},{
                 withCredentials: true
             })
 
@@ -139,7 +140,7 @@ export const BusinessAplication = createAsyncThunk(
         theme: string,
     }, {rejectWithValue}) => {
         try{
-            const response = await axios.post('http://localhost:8000/api/users/business_aplication', data, {
+            const response = await axios.post(`${BE_URL}/api/users/business_aplication`, data, {
                 withCredentials: true
             })
 
