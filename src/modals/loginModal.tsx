@@ -24,6 +24,7 @@ type FormFields = z.infer<typeof schema>
 export const LoginModal = () => {
     const dispatch = useAppDispatch();
     const modal = useSelector((state: RootState) => state.modals.login)
+    const mode = useSelector((state: RootState) => state.users.currentUser.mode)
     const {
         register,
         handleSubmit,
@@ -53,12 +54,15 @@ export const LoginModal = () => {
             <form onSubmit={handleSubmit(OnSubmit)}>
                 <Text_One>email:</Text_One>
                 <TextInput
+                    Mode={mode}
                     {...register('email')}
                 />
                 { errors.email && <ErrorText> {errors.email.message} </ErrorText> }
 
                 <Text_One>password:</Text_One>
                 <TextInput
+                    Mode={mode}
+
                     {...register('password')}
                 />
                 { errors.password && <ErrorText> {errors.password.message} </ErrorText> }
