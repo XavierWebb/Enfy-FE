@@ -29,6 +29,8 @@ export const ProfileDropDown = () => {
     const navigate = useNavigate();
     const isActive = useSelector((state: RootState) => state.modals.profileDropDown)
     const Mode = useSelector((state: RootState) => state.users.currentUser.mode);
+    const user = useSelector((state: RootState) => state.users.currentUser);
+
     const {t} = useTranslation()
     if (!isActive) {
         return null;
@@ -42,6 +44,16 @@ export const ProfileDropDown = () => {
             <Button variant="secondary" onClick={() => {
                 dispatch(changeMode())
             }}>{t('dropdownmenu.changeMode')}</Button>
+
+            {
+                user.role === 'Admin' && (
+                    <Button variant="secondary" onClick={() => {
+                        dispatch(disableModal('profileDropDown'))
+                        navigate('/admin')
+                    }}>Admin</Button>
+                )
+            }
+
             <Button variant="secondary" onClick={async () => {
                 try {
                     await dispatch(Logout()).then(unwrapResult)
