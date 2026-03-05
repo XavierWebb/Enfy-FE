@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { NavBar } from "../components/navbar"
 import { clearSearched, search_content, update_searchStatus } from "../redux/eventsSlice";
 import { useAppDispatch } from "../redux/hooks"
-import { SearchPage } from "./searchPage"
 import type { RootState } from "../redux/store";
 import { useEffect } from "react";
 import styled from "styled-components";
