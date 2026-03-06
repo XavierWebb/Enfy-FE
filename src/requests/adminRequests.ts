@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const BE_URL = import.meta.env.VITE_BE_URL
-console.log(BE_URL)
 
 export const ViewBusinessAplications = createAsyncThunk(
     '/api/admin/view_business_aplications',
