@@ -55,9 +55,9 @@ export const NavBar = () => {
     const languages = useSelector((state: RootState) => state.modals.languages)
     const user = useSelector((state:RootState) => state.users.currentUser)
     let profilePicture = `/userImages/default.webp`
-
+    const BE_URL = import.meta.env.VITE_BE_URL
     if (user.profilePicture !== 'default'){
-        profilePicture = `http://localhost:8000${user.profilePicture}`
+        profilePicture = `${BE_URL}${user.profilePicture}`
     }
     return (
         <StyledNavbar Mode={Mode}>

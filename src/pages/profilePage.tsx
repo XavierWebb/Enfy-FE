@@ -65,8 +65,9 @@ const ProfileComponent = ({
     let Picture = `/userImages/default.webp`;
     const { t } = useTranslation();
     const {ref, visible} = useObserver();
+    const BE_URL = import.meta.env.VITE_BE_URL
     if (profilePicture !== 'default') {
-        Picture = `http://localhost:8000${profilePicture}`
+        Picture = `${BE_URL}${profilePicture}`
     }
     return (
         <PageDivisorTwo ref={ref} $visible={visible}>
