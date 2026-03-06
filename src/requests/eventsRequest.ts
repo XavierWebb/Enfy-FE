@@ -2,8 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { FormProps } from "../modals/createEventsModal";
 
-const BE_URL = import.meta.env.VITE_BE_URL
-
 export const fetchEvent = createAsyncThunk(
     '/api/events/fetchEvent',
     async (
@@ -13,7 +11,7 @@ export const fetchEvent = createAsyncThunk(
     ) => {
         try {
 
-            const response = await axios.get(`${BE_URL}/api/events/fetchEvent/${event_id}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BE_URL}/api/events/fetchEvent/${event_id}`, {
                 withCredentials: true
             })
 
@@ -32,7 +30,7 @@ export const createEvent = createAsyncThunk(
     '/api/events/createEvent',
     async (data: FormProps, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${BE_URL}/api/events/createEvent`, data, {
+            const response = await axios.post(`${import.meta.env.VITE_BE_URL}/api/events/createEvent`, data, {
                 withCredentials: true
             })
 
@@ -57,7 +55,7 @@ export const BuyEvent = createAsyncThunk(
     }, { rejectWithValue }) => {
         try {
 
-            const response = await axios.post(`${BE_URL}/api/events/buyEvent`, data, {
+            const response = await axios.post(`${import.meta.env.VITE_BE_URL}/api/events/buyEvent`, data, {
                 withCredentials: true
             })
 
@@ -77,7 +75,7 @@ export const fetchRecommendedEvents = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
 
-            const response = await axios.get(`${BE_URL}/api/events/fetchRecommendedEvents`, {
+            const response = await axios.get(`${import.meta.env.VITE_BE_URL}/api/events/fetchRecommendedEvents`, {
                 withCredentials: true
             });
 

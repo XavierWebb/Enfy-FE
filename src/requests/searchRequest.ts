@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BE_URL = import.meta.env.VITE_BE_URL
-
 export const SearchEvent = createAsyncThunk(
     '/api/search/searchEvent',
     async (data: string, {rejectWithValue}) => {
         try {
-          const response = await axios.get(`${BE_URL}/api/search/searchEvent/${data}`,
+          const response = await axios.get(`${import.meta.env.VITE_BE_URL}/api/search/searchEvent/${data}`,
             {
                 withCredentials: true
             }
