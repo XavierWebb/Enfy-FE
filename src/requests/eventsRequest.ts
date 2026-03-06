@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { FormProps } from "../modals/createEventsModal";
 
-const BE_URL = import.meta.env.BE_URL
+const BE_URL = import.meta.env.VITE_BE_URL
 
 export const fetchEvent = createAsyncThunk(
     '/api/events/fetchEvent',

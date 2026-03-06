@@ -20,8 +20,6 @@ function App() {
   const mode = useSelector((state: RootState) => state.users.currentUser.mode)
   const language = user.language || 'en'
 
-  console.log('ENV: ',import.meta.env)
-  console.log('API: ',import.meta.env.VITE_BE_URL)
   useEffect(() => {
   if (i18n.language !== language) {
     i18n.changeLanguage(language)

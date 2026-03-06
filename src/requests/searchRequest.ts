@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BE_URL = import.meta.env.BE_URL
+const BE_URL = import.meta.env.VITE_BE_URL
 
 export const SearchEvent = createAsyncThunk(
     '/api/search/searchEvent',
