@@ -21,7 +21,7 @@ const StyledModal = styled.div<{Mode: 'dark' | 'light', $visible: boolean}>`
     z-index: 3;
     max-width: 35%;
     width: 35%;
-    max-height: 60%;
+    max-height: 90%;
     gap: 0.4rem;
     justify-content: center;
     opacity: 1;

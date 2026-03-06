@@ -47,7 +47,7 @@ export const CreateEventModal = () => {
     const dispatch = useAppDispatch();
     const mode = useSelector((state: RootState) => state.users.currentUser.mode)
     const [step, setStep] = useState(1)
-    const CategoriesList = Categories;
+    let CategoriesList = Categories;
     const { t } = useTranslation();
     const {
         register,
@@ -82,6 +82,7 @@ export const CreateEventModal = () => {
             dispatch(fetchMe())
             setStep(1);
             reset();
+            CategoriesList = Categories
         } catch (error: any) {
             toast.error(error);
         }
@@ -205,6 +206,7 @@ export const CreateEventModal = () => {
                                     dispatch(disableModal('createEvent'))
                                     reset()
                                     setStep(1)
+                                    CategoriesList = Categories
                                 }}>{t('createEventModal.cancel')}</Button>
 
                                 <Button type="submit" disabled={!StepTwoIsValid}>{t('createEventModal.create')}</Button>
